@@ -194,7 +194,7 @@ export default function TeacherDashboard() {
                                 />
                             </div>
                             <div>
-                                <label className="block text-sm font-bold text-gray-700 mb-2">School Name</label>
+                                <label className="block text-sm font-bold text-gray-700 mb-2">Institution Name</label>
                                 <input
                                     type="text"
                                     className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none font-medium"
