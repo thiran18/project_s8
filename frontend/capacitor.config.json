@@ -1,6 +1,9 @@
 {
-  "appId": "com.example.hear",
-  "appName": "Hear",
+  "appId": "com.thiran.audiometer",
+  "appName": "Audiometery",
   "webDir": "dist",
-  "bundledWebRuntime": false
+  "bundledWebRuntime": false,
+  "server": {
+    "androidScheme": "https"
+  }
 }

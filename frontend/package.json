@@ -15,6 +15,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@capacitor/android": "^5.7.8",
+    "@capacitor/cli": "^5.0.0",
+    "@capacitor/core": "^5.0.0",
     "@supabase/supabase-js": "^2.95.3",
     "@tailwindcss/vite": "^4.1.18",
     "clsx": "^2.1.1",
@@ -23,9 +26,7 @@
     "react-dom": "^19.2.0",
     "react-router-dom": "^7.13.0",
     "recharts": "^3.7.0",
-    "tailwind-merge": "^3.4.0",
-    "@capacitor/core": "^5.0.0",
-    "@capacitor/cli": "^5.0.0"
+    "tailwind-merge": "^3.4.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.1",
@@ -41,8 +42,4 @@
     "tailwindcss": "^4.1.18",
     "vite": "^7.3.1"
   }
-  ,
-  "dependencies": {
-    "@capacitor/core": "^5.0.0",
-    "@capacitor/cli": "^5.0.0"
-  }
+}

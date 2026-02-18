@@ -8,6 +8,7 @@ import { useAuth } from '../context/AuthContext'
 export default function Dashboard() {
     const { userProfile } = useAuth()
     const [sections, setSections] = useState([])
+    const [screeningsByPatient, setScreeningsByPatient] = useState({})
     const [loading, setLoading] = useState(true)
     const [searchTerm, setSearchTerm] = useState('')
     const [stats, setStats] = useState({
@@ -23,7 +24,8 @@ export default function Dashboard() {
     const fetchClinicianData = async () => {
         try {
             setLoading(true)
-            // Fetch all sections with their school names and student counts
+
+            // Fetch all sections with their school names and student info
             const { data: sectionsData, error: secError } = await supabase
                 .from('sections')
                 .select(`
@@ -31,40 +33,52 @@ export default function Dashboard() {
                     patients (
                         id,
                         name,
-                        screenings (id, classification, clinical_report)
+                        screenings (id, classification, clinical_report, date, created_at)
                     )
                 `)
                 .order('school_name', { ascending: true })
 
             if (secError) throw secError
 
-            // Group by school name
+            // --- Direct query for ALL screenings to compute pending count reliably ---
+            const { data: allScreenings, error: scrError } = await supabase
+                .from('screenings')
+                .select('id, classification, clinical_report, patient_id, created_at')
+                .order('created_at', { ascending: true })
+
+            if (scrError) throw scrError
+
+            // For each patient, find their latest screening (by created_at order from DB)
+            // Group screenings by patient_id
+            const screeningsByPatient = {}
+                ; (allScreenings || []).forEach(s => {
+                    if (!screeningsByPatient[s.patient_id]) {
+                        screeningsByPatient[s.patient_id] = []
+                    }
+                    screeningsByPatient[s.patient_id].push(s)
+                })
+
+            // Helper: pending = has a screening but no clinical report yet (any result)
+            const isPendingScreening = (screening) => {
+                if (!screening) return false
+                return !screening.clinical_report
+            }
+
+            // Group sections by school name
             const grouped = sectionsData.reduce((acc, section) => {
                 const school = section.school_name || 'Unassigned School'
                 if (!acc[school]) acc[school] = []
 
-                // Add calculation for pending reports in this section
-                const studentsWithTests = section.patients || []
-                const pendingCount = studentsWithTests.reduce((count, stu) => {
-                    const latestTest = (stu.screenings || []).sort((a, b) => new Date(b.date) - new Date(a.date))[0]
-
-                    // Pending if: Has test AND Result is NOT Normal AND No Report
-                    if (!latestTest) return count;
-                    const isNormal = latestTest.classification && (
-                        latestTest.classification.includes('Grade 0') ||
-                        latestTest.classification.toLowerCase().includes('normal')
-                    );
-
-                    if (!isNormal && !latestTest.clinical_report) {
-                        return count + 1;
-                    }
-                    return count;
+                // Count pending for this section using direct screenings data
+                const studentsInSection = section.patients || []
+                const pendingCount = studentsInSection.reduce((count, stu) => {
+                    const patientScreenings = screeningsByPatient[stu.id] || []
+                    // Use the last one (Supabase returns in insert order by default)
+                    const latestScreening = patientScreenings[patientScreenings.length - 1]
+                    return isPendingScreening(latestScreening) ? count + 1 : count
                 }, 0)
 
-                acc[school].push({
-                    ...section,
-                    pendingCount
-                })
+                acc[school].push({ ...section, pendingCount })
                 return acc
             }, {})
 
@@ -74,28 +88,24 @@ export default function Dashboard() {
             }))
 
             setSections(schoolGroups)
+            setScreeningsByPatient(screeningsByPatient)
 
-            // Calculate overall stats
+            // Overall stats
             const totalClasses = sectionsData.length
             const totalSchools = schoolGroups.length
-            const pendingReports = sectionsData.reduce((acc, sec) => acc + (sec.pendingCount || 0), 0)
 
-            setStats({
-                totalSchools,
-                totalClasses,
-                pendingReports: sectionsData.reduce((sum, sec) => {
-                    const secPending = (sec.patients || []).filter(p => {
-                        const latest = (p.screenings || []).sort((a, b) => new Date(b.date) - new Date(a.date))[0]
-                        if (!latest) return false;
-                        const isNormal = latest.classification && (
-                            latest.classification.includes('Grade 0') ||
-                            latest.classification.toLowerCase().includes('normal')
-                        );
-                        return !isNormal && !latest.clinical_report;
-                    }).length
-                    return sum + secPending
-                }, 0)
+            // Count total pending: for every patient across all sections, check latest screening
+            const allPatientIds = new Set(
+                sectionsData.flatMap(sec => (sec.patients || []).map(p => p.id))
+            )
+            let pendingReports = 0
+            allPatientIds.forEach(pid => {
+                const patientScreenings = screeningsByPatient[pid] || []
+                const latestScreening = patientScreenings[patientScreenings.length - 1]
+                if (isPendingScreening(latestScreening)) pendingReports++
             })
+
+            setStats({ totalSchools, totalClasses, pendingReports })
 
         } catch (error) {
             console.error('Error fetching clinician dashboard:', error)
@@ -190,8 +200,12 @@ export default function Dashboard() {
 
                                     <div className="space-y-2 mb-4">
                                         {(section.patients || []).slice(0, 3).map(stu => {
-                                            const latest = (stu.screenings || []).sort((a, b) => new Date(b.date) - new Date(a.date))[0]
-                                            const isNormal = latest?.classification && (latest.classification.includes('Grade 0') || latest.classification.toLowerCase().includes('normal'))
+                                            const patientScreenings = screeningsByPatient[stu.id] || []
+                                            const latest = patientScreenings[patientScreenings.length - 1]
+                                            const isNormal = latest?.classification && (
+                                                latest.classification.includes('Grade 0') ||
+                                                latest.classification.toLowerCase().includes('normal')
+                                            )
 
                                             return (
                                                 <div key={stu.id} className="flex items-center justify-between text-xs">
