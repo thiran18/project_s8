@@ -146,50 +146,46 @@ export default function Patients() {
                     {filteredPatients.map((patient) => (
                         <li key={patient.id}>
                             <div className="hover:bg-gray-50 px-4 py-4 sm:px-6">
-                                <div className="flex items-center justify-between">
+                                <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 w-full">
                                     <div className="flex items-center min-w-0">
-                                        <div className="flex-shrink-0 bg-blue-100 rounded-full p-2">
+                                        <div className="flex-shrink-0 bg-blue-100 rounded-full p-2.5">
                                             <User className="h-6 w-6 text-blue-600" />
                                         </div>
-                                        <div className="ml-4 truncate">
-                                            <p className="text-sm font-medium text-blue-600 truncate">
-                                                {patient.name}
-                                                <span className="ml-2 text-xs text-gray-500 font-mono bg-gray-100 px-1.5 py-0.5 rounded">
+                                        <div className="ml-4 min-w-0 flex-1">
+                                            <div className="flex flex-wrap items-center gap-2">
+                                                <p className="text-sm font-bold text-gray-900 truncate max-w-[150px] sm:max-w-none">
+                                                    {patient.name}
+                                                </p>
+                                                <span className="text-[10px] text-gray-400 font-mono bg-gray-100 px-1.5 py-0.5 rounded shrink-0">
                                                     {patient.pid || 'No PID'}
                                                 </span>
-                                            </p>
-                                            <p className="flex items-center text-sm text-gray-500">
-                                                {patient.age ? `${patient.age} years old` : 'Age N/A'} , {patient.gender}
+                                            </div>
+                                            <p className="text-xs text-gray-500 mt-0.5">
+                                                {patient.age ? `${patient.age}y` : 'Age N/A'} • {patient.gender}
                                             </p>
                                         </div>
                                     </div>
-                                    <div className="flex items-center space-x-2 sm:space-x-4">
-                                        <div className="hidden sm:flex flex-col items-end text-sm text-gray-500">
-                                            <span className="flex items-center">
-                                                <FileText className="w-4 h-4 mr-1" />
-                                                {patient.screenings?.[0]?.count || 0} Screenings
-                                            </span>
+
+                                    <div className="flex items-center justify-between sm:justify-end gap-2 pl-14 sm:pl-0">
+                                        <div className="flex items-center gap-1">
+                                            <button
+                                                onClick={() => setSelectedPatient(patient)}
+                                                className="p-2 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
+                                                title="View Details"
+                                            >
+                                                <Eye size={20} />
+                                            </button>
+                                            <button
+                                                onClick={() => handleDeletePatient(patient.id, patient.name)}
+                                                className="p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                                                title="Delete Patient"
+                                            >
+                                                <Trash2 size={20} />
+                                            </button>
                                         </div>
-
-                                        {/* Eye Icon for Details */}
-                                        <button
-                                            onClick={() => setSelectedPatient(patient)}
-                                            className="p-2 text-gray-400 hover:text-blue-600 transition-colors"
-                                            title="View Details"
-                                        >
-                                            <Eye className="w-5 h-5" />
-                                        </button>
-
-                                        <button
-                                            onClick={() => handleDeletePatient(patient.id, patient.name)}
-                                            className="p-2 text-gray-400 hover:text-red-600 transition-colors"
-                                            title="Delete Patient"
-                                        >
-                                            <Trash2 className="w-5 h-5" />
-                                        </button>
                                         <Link
                                             to={`/test?patientId=${patient.id}`}
-                                            className="px-3 py-1 bg-green-100 text-green-700 rounded-full text-xs font-bold hover:bg-green-200"
+                                            className="px-4 py-2 bg-green-100 text-green-700 rounded-xl text-xs font-bold hover:bg-green-200 transition-colors"
                                         >
                                             Test Now
                                         </Link>
@@ -270,7 +266,7 @@ export default function Patients() {
             {selectedPatient && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 backdrop-blur-md transition-opacity duration-300">
                     <div
-                        className="bg-white rounded-[2rem] shadow-2xl max-w-3xl w-full overflow-hidden relative animate-fade-in-up flex flex-col md:flex-row"
+                        className="bg-white rounded-3xl shadow-2xl max-w-2xl w-full overflow-y-auto max-h-[90vh] relative animate-fade-in-up flex flex-col md:flex-row"
                         style={{ animation: 'fadeInUp 0.3s ease-out forwards' }}
                     >
                         {/* Close Button */}
@@ -278,11 +274,11 @@ export default function Patients() {
                             onClick={() => setSelectedPatient(null)}
                             className="absolute top-4 right-4 p-2 bg-gray-100 hover:bg-gray-200 rounded-full transition-all duration-200 z-10"
                         >
-                            <X className="w-5 h-5 text-gray-500" />
+                            <X size={20} className="text-gray-500" />
                         </button>
 
                         {/* Left Sidebar - Profile */}
-                        <div className="w-full md:w-[35%] bg-white p-8 flex flex-col items-center border-r border-gray-100 relative">
+                        <div className="w-full md:w-[40%] bg-gray-50/50 p-8 flex flex-col items-center border-b md:border-b-0 md:border-r border-gray-100">
                             <div className="w-32 h-32 rounded-full p-1 border-2 border-gray-200 mb-4 flex items-center justify-center relative">
                                 <div className="w-full h-full bg-blue-50 rounded-full flex items-center justify-center overflow-hidden">
                                     {/* Professional Avatar using Initials or Vector style if available. Using 'micah' which is cleaner vector art than avataaars, or back to initials if preferred. Let's try 'micah' first as it's cleaner vector art similar to reference. */}
@@ -306,44 +302,42 @@ export default function Patients() {
                         </div>
 
                         {/* Right Content - Details */}
-                        <div className="w-full md:w-[65%] p-10 bg-white">
-                            <div className="flex items-center gap-3 mb-8">
+                        <div className="w-full md:w-[60%] p-6 md:p-10 bg-white">
+                            <div className="flex items-center gap-3 mb-6 md:mb-8">
                                 <div className="bg-blue-600 text-white p-1.5 rounded-full">
-                                    <User className="w-4 h-4" />
+                                    <User size={16} />
                                 </div>
                                 <h3 className="text-lg font-bold text-gray-900">Personal Information</h3>
                             </div>
 
-                            <div className="grid grid-cols-2 md:grid-cols-3 gap-y-8 gap-x-4">
+                            <div className="grid grid-cols-2 gap-y-6 md:gap-y-8 gap-x-4">
                                 <div>
-                                    <p className="text-sm font-medium text-gray-500 mb-1">Age</p>
-                                    <p className="text-lg font-bold text-gray-900">{selectedPatient.age || '-'}</p>
+                                    <p className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-1">Age</p>
+                                    <p className="text-base md:text-lg font-bold text-gray-900">{selectedPatient.age || '-'}</p>
                                 </div>
                                 <div>
-                                    <p className="text-sm font-medium text-gray-500 mb-1">Gender</p>
-                                    <p className="text-lg font-bold text-gray-900">{selectedPatient.gender || '-'}</p>
+                                    <p className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-1">Gender</p>
+                                    <p className="text-base md:text-lg font-bold text-gray-900">{selectedPatient.gender || '-'}</p>
                                 </div>
 
-
-                                <div className="col-span-3">
-                                    <p className="text-sm font-medium text-gray-500 mb-1">Registered Date</p>
-                                    <p className="text-lg font-bold text-gray-900">
+                                <div className="col-span-2">
+                                    <p className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-1">Registered Date</p>
+                                    <p className="text-base md:text-lg font-bold text-gray-900">
                                         {new Date(selectedPatient.created_at).toLocaleDateString('en-GB', {
                                             day: 'numeric', month: 'short', year: 'numeric'
                                         })}
                                     </p>
                                 </div>
 
-
-
-                                <div className="col-span-3">
-                                    <p className="text-sm font-medium text-gray-500 mb-1">Institution Name</p>
-                                    <p className="text-lg font-bold text-gray-900">
-                                        {selectedPatient.sections?.school_name || 'School Address Not Available'}
+                                <div className="col-span-2">
+                                    <p className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-1">Institution Name</p>
+                                    <p className="text-base md:text-lg font-bold text-gray-900">
+                                        {selectedPatient.sections?.school_name || 'Not Available'}
                                     </p>
-                                    <p className="text-sm text-gray-500 mt-1">
-                                        Class: <span className="font-semibold text-gray-700">{selectedPatient.sections?.name || '-'}</span>
-                                    </p>
+                                    <div className="mt-2 flex items-center text-xs">
+                                        <span className="text-gray-400 font-medium">Class: </span>
+                                        <span className="ml-1 font-bold text-blue-600">{selectedPatient.sections?.name || '-'}</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>

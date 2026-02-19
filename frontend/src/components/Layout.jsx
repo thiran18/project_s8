@@ -93,42 +93,82 @@ export default function Layout() {
                 </header>
 
                 {/* Mobile Header */}
-                <header className="md:hidden bg-white border-b border-gray-200 flex items-center justify-between p-4">
+                <header className="md:hidden bg-white border-b border-gray-200 flex items-center justify-between p-4 sticky top-0 z-40">
                     <div className="flex items-center space-x-2">
                         <div className="w-8 h-8">
-                            <img src="/logo.png" alt="HearPulse Logo" className="w-full h-full object-contain" />
+                            <img src="/newLOGO.png" alt="HearPulse Logo" className="w-full h-full object-contain" />
                         </div>
                         <span className="text-lg font-bold text-gray-900">HearPulse</span>
                     </div>
-                    <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}>
-                        {isMobileMenuOpen ? <X /> : <Menu />}
+                    <button
+                        onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                        className="p-2 -mr-2 text-gray-600 hover:text-gray-900 focus:outline-none"
+                    >
+                        {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
                     </button>
                 </header>
 
                 {/* Mobile Menu Overlay */}
                 {isMobileMenuOpen && (
-                    <div className="md:hidden absolute inset-0 z-50 bg-white p-4">
-                        <div className="flex justify-between items-center mb-8">
-                            <span className="text-xl font-bold">Menu</span>
-                            <button onClick={() => setIsMobileMenuOpen(false)}><X /></button>
-                        </div>
-                        <nav className="space-y-4">
-                            {navItems.map((item) => (
-                                <Link
-                                    key={item.path}
-                                    to={item.path}
+                    <div className="md:hidden fixed inset-0 z-50 bg-white overflow-y-auto">
+                        <div className="flex flex-col h-full">
+                            <div className="flex items-center justify-between p-4 border-b border-gray-100">
+                                <div className="flex items-center space-x-2">
+                                    <div className="w-8 h-8">
+                                        <img src="/newLOGO.png" alt="HearPulse Logo" className="w-full h-full object-contain" />
+                                    </div>
+                                    <span className="text-lg font-bold">Menu</span>
+                                </div>
+                                <button
                                     onClick={() => setIsMobileMenuOpen(false)}
-                                    className="flex items-center space-x-4 p-4 rounded-lg bg-gray-50"
+                                    className="p-2 -mr-2 text-gray-400 hover:text-gray-600 focus:outline-none"
                                 >
-                                    <item.icon className="w-6 h-6 text-blue-600" />
-                                    <span className="text-lg font-medium">{item.name}</span>
-                                </Link>
-                            ))}
-                            <button onClick={handleSignOut} className="flex items-center space-x-4 p-4 w-full text-red-600">
-                                <LogOut className="w-6 h-6" />
-                                <span className="text-lg font-medium">Sign Out</span>
-                            </button>
-                        </nav>
+                                    <X size={24} />
+                                </button>
+                            </div>
+
+                            <div className="flex-1 p-4">
+                                <nav className="space-y-2">
+                                    {navItems.map((item) => {
+                                        const Icon = item.icon
+                                        const isActive = location.pathname === item.path
+                                        return (
+                                            <Link
+                                                key={item.path}
+                                                to={item.path}
+                                                onClick={() => setIsMobileMenuOpen(false)}
+                                                className={`flex items-center space-x-4 p-4 rounded-xl transition-colors ${isActive
+                                                        ? 'bg-blue-50 text-blue-700'
+                                                        : 'text-gray-600 hover:bg-gray-50'
+                                                    }`}
+                                            >
+                                                <Icon className={`w-6 h-6 ${isActive ? 'text-blue-600' : 'text-gray-400'}`} />
+                                                <span className="text-lg font-semibold">{item.name}</span>
+                                            </Link>
+                                        )
+                                    })}
+                                </nav>
+
+                                <div className="mt-8 pt-8 border-t border-gray-100 space-y-4 px-2">
+                                    <div className="flex items-center space-x-3 py-2">
+                                        <div className="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center text-blue-700 font-bold text-xl">
+                                            {user?.email?.[0].toUpperCase()}
+                                        </div>
+                                        <div className="flex-1 min-w-0">
+                                            <p className="text-sm font-bold text-gray-900 truncate">{user?.email}</p>
+                                            <p className="text-xs text-gray-500 capitalize">{userProfile?.role || 'User'}</p>
+                                        </div>
+                                    </div>
+                                    <button
+                                        onClick={handleSignOut}
+                                        className="flex items-center space-x-4 p-4 w-full text-red-600 rounded-xl hover:bg-red-50 transition-colors"
+                                    >
+                                        <LogOut className="w-6 h-6" />
+                                        <span className="text-lg font-bold">Sign Out</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 )}
 

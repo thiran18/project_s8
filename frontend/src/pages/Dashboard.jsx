@@ -123,20 +123,20 @@ export default function Dashboard() {
 
     return (
         <div className="space-y-8">
-            <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-                <div>
+            <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4">
+                <div className="w-full">
                     <h1 className="text-2xl font-bold text-gray-900">Clinician Control Center</h1>
                     <p className="text-gray-500 mt-1">Reviewing results across all associated schools</p>
                 </div>
 
-                {/* Search Bar - New */}
-                <div className="relative w-full md:w-96">
+                {/* Search Bar - Full width on mobile */}
+                <div className="relative w-full lg:w-96">
                     <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                         <Search className="h-5 w-5 text-gray-400" />
                     </div>
                     <input
                         type="text"
-                        className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-xl leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-blue-500 focus:border-blue-500 sm:text-sm transition-shadow"
+                        className="block w-full pl-10 pr-3 py-2.5 border border-gray-300 rounded-xl leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-blue-500 focus:border-blue-500 text-sm transition-shadow"
                         placeholder="Search schools or classes..."
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
@@ -144,8 +144,8 @@ export default function Dashboard() {
                 </div>
             </div>
 
-            {/* Stats Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {/* Stats Grid - Stacked on mobile, 3 cols on md+ */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
                 <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex items-center space-x-4">
                     <div className="p-4 rounded-xl bg-blue-100 text-blue-600">
                         <School className="w-6 h-6" />
@@ -183,7 +183,7 @@ export default function Dashboard() {
                             <span className="w-1 h-6 bg-blue-600 rounded-full"></span>
                             <h2 className="text-lg font-bold text-gray-800">{school.name}</h2>
                         </div>
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                             {school.sections.map(section => (
                                 <div key={section.id} className="bg-white rounded-2xl p-5 border border-gray-100 shadow-sm hover:shadow-md transition-all">
                                     <div className="flex justify-between items-start mb-4">

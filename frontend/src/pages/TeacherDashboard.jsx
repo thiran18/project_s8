@@ -88,15 +88,15 @@ export default function TeacherDashboard() {
                 </div>
                 <button
                     onClick={() => setShowAddModal(true)}
-                    className="flex items-center space-x-2 bg-blue-600 text-white px-6 py-3 rounded-2xl hover:bg-blue-700 transition shadow-lg shadow-blue-100 font-bold"
+                    className="flex items-center justify-center space-x-2 bg-blue-600 text-white px-6 py-3.5 rounded-2xl hover:bg-blue-700 transition shadow-lg shadow-blue-100 font-bold w-full sm:w-auto"
                 >
                     <Plus className="w-5 h-5" />
                     <span>Create New Section</span>
                 </button>
             </div>
 
-            {/* Search Bar */}
-            <div className="relative max-w-sm">
+            {/* Search Bar - Full width on mobile */}
+            <div className="relative w-full sm:max-w-sm">
                 <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
                     <Search className="h-5 w-5 text-gray-400" />
                 </div>
@@ -109,9 +109,9 @@ export default function TeacherDashboard() {
                 />
             </div>
 
-            {/* Sections Grid */}
+            {/* Sections Grid - Responsive cols */}
             {filteredSections.length > 0 ? (
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                     {filteredSections.map((section) => (
                         <Link
                             key={section.id}

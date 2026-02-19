@@ -160,38 +160,35 @@ export default function SectionDetail() {
                         )}
                         {!sectionError && students.length > 0 ? students.map((stu) => (
                             <div key={stu.id} className="group hover:bg-gray-50 transition-colors p-4 md:px-6 md:py-4">
-                                <div className="grid grid-cols-1 md:grid-cols-12 gap-4 items-center">
+                                <div className="flex flex-col md:grid md:grid-cols-12 md:gap-4 md:items-center gap-6">
                                     {/* Name Column */}
-                                    <div className="col-span-4 flex items-center space-x-3">
+                                    <div className="md:col-span-4 flex items-center space-x-3">
                                         <div className="w-10 h-10 md:w-8 md:h-8 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center font-bold text-sm shrink-0">
-                                            {stu.name[0]}
+                                            {stu.name[0].toUpperCase()}
                                         </div>
-                                        <div>
-                                            <span className="font-semibold text-gray-900 block">{stu.name}</span>
-                                            <span className="text-xs text-gray-500 font-mono bg-gray-100 px-1.5 py-0.5 rounded">{stu.pid || 'No PID'}</span>
-                                            {/* Mobile-only Details */}
-                                            <span className="md:hidden text-xs text-gray-500 block mt-1">{stu.age}y • {stu.gender}</span>
+                                        <div className="min-w-0">
+                                            <span className="font-bold text-gray-900 block truncate">{stu.name}</span>
+                                            <div className="flex flex-wrap items-center gap-2 mt-0.5">
+                                                <span className="text-[10px] text-gray-400 font-mono bg-gray-50 border border-gray-100 px-1.5 py-0.5 rounded shrink-0">{stu.pid || 'No PID'}</span>
+                                                <span className="md:hidden text-xs text-gray-500">{stu.age}y • {stu.gender}</span>
+                                            </div>
                                         </div>
                                     </div>
 
-                                    {/* Details Column - Hidden on Mobile (merged with name or just hidden if redundant) */}
-                                    <div className="hidden md:block col-span-3 text-sm text-gray-500">
+                                    {/* Details Column - Desktop only */}
+                                    <div className="hidden md:block md:col-span-3 text-sm text-gray-500">
                                         {stu.age}y • {stu.gender}
                                     </div>
 
                                     {/* Latest Test Column */}
-                                    <div className="col-span-3 mt-2 md:mt-0 pl-12 md:pl-0">
-                                        <div className="flex flex-col items-start">
-                                            <span className={`inline-flex px-2 py-1 rounded-full text-xs font-medium w-fit ${getStatusColor(stu.latestResult)}`}>
+                                    <div className="md:col-span-3 flex md:flex-col items-center md:items-start justify-between md:justify-center">
+                                        <span className="text-[10px] uppercase font-bold text-gray-400 md:hidden">Latest Status</span>
+                                        <div className="flex flex-col items-end md:items-start">
+                                            <span className={`inline-flex px-2 py-0.5 rounded-full text-[10px] font-bold ${getStatusColor(stu.latestResult)}`}>
                                                 {stu.latestResult}
                                             </span>
-                                            {stu.latestDate && (
-                                                <span className="text-[10px] text-gray-400 mt-1">
-                                                    {new Date(stu.latestDate).toLocaleDateString()}
-                                                </span>
-                                            )}
                                             {stu.reportNeeded && (
-                                                <span className="mt-1 text-[10px] bg-orange-100 text-orange-700 font-bold px-2 py-0.5 rounded-full animate-pulse">
+                                                <span className="mt-1 text-[10px] bg-orange-100 text-orange-700 font-bold px-2 py-0.5 rounded-full">
                                                     Report Needed
                                                 </span>
                                             )}
@@ -199,22 +196,24 @@ export default function SectionDetail() {
                                     </div>
 
                                     {/* Actions Column */}
-                                    <div className="col-span-2 mt-3 md:mt-0 flex items-center justify-end space-x-3 pl-12 md:pl-0">
-                                        {stu.latestResultId ? (
-                                            <Link
-                                                to={`/results/${stu.latestResultId}`}
-                                                className="p-2 text-gray-400 hover:text-blue-600 transition-colors"
-                                                title="View Results"
-                                            >
-                                                <Activity className="w-5 h-5 md:w-4 md:h-4" />
-                                            </Link>
-                                        ) : null}
+                                    <div className="md:col-span-2 flex items-center justify-between md:justify-end gap-3 pt-4 border-t border-gray-100 md:pt-0 md:border-t-0">
+                                        <div className="flex items-center gap-2">
+                                            {stu.latestResultId && (
+                                                <Link
+                                                    to={`/results/${stu.latestResultId}`}
+                                                    className="p-2 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
+                                                    title="View Results"
+                                                >
+                                                    <Activity size={18} />
+                                                </Link>
+                                            )}
+                                        </div>
                                         <Link
                                             to={`/test?patientId=${stu.id}`}
-                                            className="bg-blue-50 text-blue-600 px-4 py-2 md:px-3 md:py-1.5 rounded-lg text-xs font-bold hover:bg-blue-100 transition-colors flex items-center space-x-1"
+                                            className="bg-blue-600 text-white md:bg-blue-50 md:text-blue-600 px-4 py-2.5 md:px-3 md:py-1.5 rounded-xl text-xs font-bold hover:bg-blue-700 md:hover:bg-blue-100 transition-colors flex items-center justify-center gap-1 flex-1 md:flex-none shadow-sm md:shadow-none"
                                         >
                                             <span>Start Test</span>
-                                            <ChevronRight className="w-3 h-3" />
+                                            <ChevronRight size={14} />
                                         </Link>
                                     </div>
                                 </div>

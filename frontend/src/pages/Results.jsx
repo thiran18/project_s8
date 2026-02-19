@@ -397,23 +397,23 @@ export default function Results() {
                 </div>
             </div>
 
-            {/* Metrics Bar (Novelty #1, #5) */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <div className="bg-white p-4 rounded-xl shadow-sm border border-gray-100 flex flex-col">
-                    <span className="text-xs text-gray-500 font-bold uppercase tracking-wider">Right Ear PTA</span>
-                    <span className="text-xl font-bold text-red-500">{rightPTA} dB HL</span>
+            {/* Metrics Bar - Auto-stacking on mobile */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div className="bg-white p-4 rounded-xl shadow-sm border border-gray-100 flex flex-col items-center sm:items-start text-center sm:text-left transition-all hover:shadow-md">
+                    <span className="text-[10px] text-gray-400 font-bold uppercase tracking-widest mb-1">Right Ear PTA</span>
+                    <span className="text-2xl font-black text-red-500">{rightPTA} dB HL</span>
                 </div>
-                <div className="bg-white p-4 rounded-xl shadow-sm border border-gray-100 flex flex-col">
-                    <span className="text-xs text-gray-500 font-bold uppercase tracking-wider">Left Ear PTA</span>
-                    <span className="text-xl font-bold text-blue-500">{leftPTA} dB HL</span>
+                <div className="bg-white p-4 rounded-xl shadow-sm border border-gray-100 flex flex-col items-center sm:items-start text-center sm:text-left transition-all hover:shadow-md">
+                    <span className="text-[10px] text-gray-400 font-bold uppercase tracking-widest mb-1">Left Ear PTA</span>
+                    <span className="text-2xl font-black text-blue-500">{leftPTA} dB HL</span>
                 </div>
-                <div className="bg-white p-4 rounded-xl shadow-sm border border-gray-100 flex flex-col">
-                    <span className="text-xs text-gray-500 font-bold uppercase tracking-wider">Duration</span>
-                    <span className="text-xl font-bold text-gray-800">{duration}</span>
+                <div className="bg-white p-4 rounded-xl shadow-sm border border-gray-100 flex flex-col items-center sm:items-start text-center sm:text-left transition-all hover:shadow-md">
+                    <span className="text-[10px] text-gray-400 font-bold uppercase tracking-widest mb-1">Duration</span>
+                    <span className="text-2xl font-black text-gray-800">{duration}</span>
                 </div>
-                <div className="bg-white p-4 rounded-xl shadow-sm border border-gray-100 flex flex-col">
-                    <span className="text-xs text-gray-500 font-bold uppercase tracking-wider">Pattern</span>
-                    <span className="text-sm font-bold text-gray-800 break-words line-clamp-2" title={pattern}>{pattern}</span>
+                <div className="bg-white p-4 rounded-xl shadow-sm border border-gray-100 flex flex-col items-center sm:items-start text-center sm:text-left transition-all hover:shadow-md">
+                    <span className="text-[10px] text-gray-400 font-bold uppercase tracking-widest mb-1">Pattern</span>
+                    <span className="text-lg font-black text-gray-800 break-words line-clamp-1" title={pattern}>{pattern}</span>
                 </div>
             </div>
 
@@ -471,15 +471,19 @@ export default function Results() {
 
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                 {/* Main Chart */}
-                <div className="lg:col-span-2 bg-white p-4 sm:p-6 rounded-2xl shadow-sm border border-gray-100 min-h-[500px]">
-                    <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
+                {/* Main Chart - Take full width and centered on mobile */}
+                <div className="lg:col-span-2 bg-white p-4 sm:p-6 rounded-2xl shadow-sm border border-gray-100 order-1">
+                    <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 gap-6">
                         <div className="flex items-center space-x-2">
+                            <div className="p-2 bg-blue-50 rounded-lg">
+                                <Activity size={18} className="text-blue-600" />
+                            </div>
                             <h3 className="font-bold text-gray-900">Pure Tone Audiometry</h3>
-                            <span className="text-xs text-gray-400 font-mono">(Log Scale)</span>
+                            <span className="text-[10px] text-gray-400 font-mono hidden sm:inline">(LOG SCALE)</span>
                         </div>
-                        <div className="flex space-x-4 text-sm">
-                            <div className="flex items-center"><span className="w-3 h-3 bg-red-500 rounded-full mr-2"></span>Right (O)</div>
-                            <div className="flex items-center"><span className="w-3 h-3 bg-blue-500 rounded-full mr-2"></span>Left (X)</div>
+                        <div className="flex items-center gap-6 text-xs font-bold">
+                            <div className="flex items-center"><span className="w-3 h-3 bg-red-500 rounded-full mr-2 shadow-sm shadow-red-100"></span>Right <span className="hidden sm:inline ml-1">(O)</span></div>
+                            <div className="flex items-center"><span className="w-3 h-3 bg-blue-500 rounded-full mr-2 shadow-sm shadow-blue-100"></span>Left <span className="hidden sm:inline ml-1">(X)</span></div>
                         </div>
                     </div>
 
@@ -537,8 +541,8 @@ export default function Results() {
                     </div>
                 </div>
 
-                {/* Sidebar Info */}
-                <div className="space-y-6">
+                {/* Sidebar Info - Stacked below chart on mobile */}
+                <div className="space-y-6 order-2">
                     {/* Clinical Report Section */}
                     <div className="bg-purple-50 p-4 sm:p-6 rounded-2xl shadow-sm border border-purple-100">
                         <div className="flex items-center justify-between mb-4">

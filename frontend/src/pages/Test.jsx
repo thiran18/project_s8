@@ -463,7 +463,7 @@ export default function Test() {
                             </button>
                         </div>
 
-                        <div className="bg-[#CFD8DC]/30 p-6 rounded-2xl flex items-start space-x-4 text-sm text-[#78909C] border border-[#CFD8DC]">
+                        {/*<div className="bg-[#CFD8DC]/30 p-6 rounded-2xl flex items-start space-x-4 text-sm text-[#78909C] border border-[#CFD8DC]">
                             <div className="space-y-3 w-full text-left">
                                 <p className="font-medium text-[#607D8B] uppercase tracking-widest text-xs">Sequence Plan</p>
                                 <div className="grid grid-cols-1 gap-2">
@@ -478,7 +478,7 @@ export default function Test() {
                                 </div>
                             </div>
                         </div>
-
+                        */}
                         <button
                             onClick={startTesting}
                             className="w-full bg-[#607D8B] hover:bg-[#546E7A] text-white font-medium py-5 rounded-xl shadow-lg active:scale-95 flex items-center justify-center space-x-3 transition-all tracking-wide"
