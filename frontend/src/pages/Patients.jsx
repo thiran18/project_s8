@@ -7,7 +7,7 @@ import { useAuth } from '../context/useAuth'
 import Loading from '../components/ui/Loading'
 
 export default function Patients() {
-    const { userProfile } = useAuth()
+    const { user, userProfile } = useAuth()
     const isTeacher = userProfile?.role === 'teacher'
 
     const [patients, setPatients] = useState([])
@@ -26,15 +26,23 @@ export default function Patients() {
     })
 
     useEffect(() => {
-        fetchPatients()
-    }, [])
+        if (user) {
+            fetchPatients()
+        }
+    }, [user, userProfile])
 
     const fetchPatients = async () => {
+        if (!user) return
         try {
-            const { data, error } = await supabase
+            let query = supabase
                 .from('patients')
                 .select('*, pid, screenings(count), sections(name, school_name)')
-                .order('created_at', { ascending: false })
+
+            if (isTeacher) {
+                query = query.eq('created_by', user.id)
+            }
+
+            const { data, error } = await query.order('created_at', { ascending: false })
 
             if (error) throw error
             setPatients(data)

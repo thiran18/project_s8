@@ -36,6 +36,7 @@ export default function TeacherDashboard() {
                     patients(id)
                 `)
                 .eq('created_by', user.id)
+                .eq('patients.created_by', user.id)
                 .order('created_at', { ascending: false })
 
             if (error) throw error

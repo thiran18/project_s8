@@ -7,7 +7,8 @@ import Loading from '../components/ui/Loading'
 
 export default function SectionDetail() {
     const { sectionId } = useParams()
-    const { user } = useAuth()
+    const { user, userProfile } = useAuth()
+    const isTeacher = userProfile?.role === 'teacher'
     const navigate = useNavigate()
     const [section, setSection] = useState(null)
     const [students, setStudents] = useState([])
@@ -21,24 +22,31 @@ export default function SectionDetail() {
     })
 
     useEffect(() => {
-        fetchSectionData()
-    }, [sectionId])
+        if (user && sectionId) {
+            fetchSectionData()
+        }
+    }, [sectionId, user])
 
     const fetchSectionData = async () => {
         try {
             setLoading(true)
             // Fetch Section Details
-            const { data: sectionData, error: secError } = await supabase
+            let secQuery = supabase
                 .from('sections')
                 .select('*')
                 .eq('id', sectionId)
-                .single()
+
+            if (isTeacher) {
+                secQuery = secQuery.eq('created_by', user.id)
+            }
+
+            const { data: sectionData, error: secError } = await secQuery.single()
 
             if (secError) throw secError
             setSection(sectionData)
 
             // Fetch Students in this section
-            const { data: studentsData, error: stuError } = await supabase
+            let stuQuery = supabase
                 .from('patients')
                 .select(`
                     id,
@@ -49,6 +57,12 @@ export default function SectionDetail() {
                     screenings(id, classification, date, clinical_report)
                 `)
                 .eq('section_id', sectionId)
+
+            if (isTeacher) {
+                stuQuery = stuQuery.eq('created_by', user.id)
+            }
+
+            const { data: studentsData, error: stuError } = await stuQuery
                 .order('name', { ascending: true })
 
             if (stuError) throw stuError
