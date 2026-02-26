@@ -100,7 +100,12 @@ export default function Login() {
                             </div>
 
                             <div>
-                                <label className="block text-sm font-medium text-slate-400 mb-2 px-1">Password</label>
+                                <div className="flex justify-between items-center mb-2 px-1">
+                                    <label className="text-sm font-medium text-slate-400">Password</label>
+                                    <Link to="/forgot-password" size="sm" className="text-xs text-blue-500 hover:text-blue-400 transition-colors">
+                                        Forgot password?
+                                    </Link>
+                                </div>
                                 <div className="relative group">
                                     <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-slate-500 group-focus-within:text-blue-500 transition-colors">
                                         <Lock size={18} />
@@ -119,7 +124,7 @@ export default function Login() {
                                         onClick={() => setShowPassword(!showPassword)}
                                         className="absolute inset-y-0 right-0 pr-4 flex items-center text-slate-500 hover:text-white transition-colors"
                                     >
-                                        {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                                        {showPassword ? <Eye size={18} /> : <EyeOff size={18} />}
                                     </button>
                                 </div>
                             </div>

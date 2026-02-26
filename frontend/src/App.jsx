@@ -12,6 +12,8 @@ import Test from './pages/Test'
 import Settings from './pages/Settings'
 import Login from './pages/Login'
 import Register from './pages/Register'
+import ForgotPassword from './pages/ForgotPassword'
+import ResetPassword from './pages/ResetPassword'
 
 import { AuthProvider } from './context/AuthContext'
 import { useAuth } from './context/useAuth'
@@ -54,6 +56,8 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/reset-password" element={<ResetPassword />} />
 
           {/* Protected Routes with Layout */}
           <Route element={<ProtectedRoute />}>
