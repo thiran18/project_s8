@@ -145,7 +145,7 @@ export default function Patients() {
         <div className="space-y-6">
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
                 <div>
-                    <h1 className="text-2xl font-bold text-gray-900">{isTeacher ? 'School Students' : 'Patients'}</h1>
+                    <h1 className="text-2xl font-bold text-gray-900 dark:text-white">{isTeacher ? 'School Students' : 'Patients'}</h1>
                 </div>
                 <button
                     onClick={() => setShowAddModal(true)}
@@ -159,11 +159,11 @@ export default function Patients() {
             {/* Search Bar */}
             <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                    <Search className="h-5 w-5 text-gray-400" />
+                    <Search className="h-5 w-5 text-gray-400 dark:text-slate-500" />
                 </div>
                 <input
                     type="text"
-                    className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                    className="block w-full pl-10 pr-3 py-2 border border-gray-300 dark:border-slate-700 rounded-lg leading-5 bg-white dark:bg-slate-900 placeholder-gray-500 dark:placeholder-slate-500 text-gray-900 dark:text-white focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                     placeholder="Search students by name..."
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
@@ -171,7 +171,7 @@ export default function Patients() {
             </div>
 
             {/* List */}
-            <div className="bg-white shadow overflow-hidden sm:rounded-md">
+            <div className="bg-white dark:bg-slate-800 shadow dark:shadow-none overflow-hidden sm:rounded-md border border-transparent dark:border-slate-700">
                 {error && (
                     <div className="p-4 bg-red-50 text-red-700 border-l-4 border-red-500">
                         <p className="font-bold">Error loading patients</p>
@@ -179,25 +179,25 @@ export default function Patients() {
                         <p className="text-sm mt-1">If this says "Column does not exist", please run the <code>migrations_add_pid.sql</code> in Supabase.</p>
                     </div>
                 )}
-                <ul className="divide-y divide-gray-200">
+                <ul className="divide-y divide-gray-200 dark:divide-slate-700">
                     {filteredPatients.map((patient) => (
                         <li key={patient.id}>
-                            <div className="hover:bg-gray-50 px-4 py-4 sm:px-6">
+                            <div className="hover:bg-gray-50 dark:hover:bg-slate-700 transition-colors px-4 py-4 sm:px-6">
                                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 w-full">
                                     <div className="flex items-center min-w-0">
-                                        <div className="flex-shrink-0 bg-blue-100 rounded-full p-2.5">
-                                            <User className="h-6 w-6 text-blue-600" />
+                                        <div className="flex-shrink-0 bg-blue-100 dark:bg-blue-900/30 rounded-full p-2.5">
+                                            <User className="h-6 w-6 text-blue-600 dark:text-blue-400" />
                                         </div>
                                         <div className="ml-4 min-w-0 flex-1">
                                             <div className="flex flex-wrap items-center gap-2">
-                                                <p className="text-sm font-bold text-gray-900 truncate max-w-[150px] sm:max-w-none">
+                                                <p className="text-sm font-bold text-gray-900 dark:text-white truncate max-w-[150px] sm:max-w-none">
                                                     {patient.name}
                                                 </p>
-                                                <span className="text-[10px] text-gray-400 font-mono bg-gray-100 px-1.5 py-0.5 rounded shrink-0">
+                                                <span className="text-[10px] text-gray-400 dark:text-slate-500 font-mono bg-gray-100 dark:bg-slate-900 px-1.5 py-0.5 rounded shrink-0 border border-transparent dark:border-slate-800">
                                                     {patient.pid || 'No PID'}
                                                 </span>
                                             </div>
-                                            <p className="text-xs text-gray-500 mt-0.5">
+                                            <p className="text-xs text-gray-500 dark:text-slate-400 mt-0.5">
                                                 {patient.age ? `${patient.age}y` : 'Age N/A'} • {patient.gender}
                                             </p>
                                         </div>
@@ -207,14 +207,14 @@ export default function Patients() {
                                         <div className="flex items-center gap-1">
                                             <button
                                                 onClick={() => setSelectedPatient(patient)}
-                                                className="p-2 text-gray-400 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors"
+                                                className="p-2 text-gray-400 dark:text-slate-500 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 rounded-lg transition-colors"
                                                 title="View Details"
                                             >
                                                 <Eye size={20} />
                                             </button>
                                             <button
                                                 onClick={() => handleDeletePatient(patient.id, patient.name)}
-                                                className="p-2 text-gray-400 hover:text-red-600 hover:bg-red-50 rounded-lg transition-colors"
+                                                className="p-2 text-gray-400 dark:text-slate-500 hover:text-red-600 dark:hover:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/30 rounded-lg transition-colors"
                                                 title="Delete Patient"
                                             >
                                                 <Trash2 size={20} />
@@ -222,7 +222,7 @@ export default function Patients() {
                                         </div>
                                         <Link
                                             to={`/test?patientId=${patient.id}`}
-                                            className="px-4 py-2 bg-green-100 text-green-700 rounded-xl text-xs font-bold hover:bg-green-200 transition-colors"
+                                            className="px-4 py-2 bg-green-100 dark:bg-green-900/20 text-green-700 dark:text-green-400 rounded-xl text-xs font-bold hover:bg-green-200 dark:hover:bg-green-900/40 transition-colors"
                                         >
                                             Test Now
                                         </Link>
@@ -232,7 +232,7 @@ export default function Patients() {
                         </li>
                     ))}
                     {filteredPatients.length === 0 && (
-                        <li className="px-4 py-8 text-center text-gray-500">
+                        <li className="px-4 py-8 text-center text-gray-500 dark:text-slate-500">
                             No patients found. Add a new student to get started.
                         </li>
                     )}
@@ -242,34 +242,34 @@ export default function Patients() {
             {/* Add Patient Modal */}
             {showAddModal && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4 backdrop-blur-sm">
-                    <div className="bg-white rounded-2xl shadow-xl max-w-sm w-full p-6">
-                        <h2 className="text-xl font-bold text-gray-900 mb-4">Add New Student</h2>
+                    <div className="bg-white dark:bg-slate-800 rounded-2xl shadow-xl max-w-sm w-full p-6 border border-transparent dark:border-slate-700">
+                        <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4">Add New Student</h2>
                         <form onSubmit={handleCreatePatient} className="space-y-4">
 
                             <div>
-                                <label className="block text-sm font-medium text-gray-700">Full Name</label>
+                                <label className="block text-sm font-medium text-gray-700 dark:text-slate-300">Full Name</label>
                                 <input
                                     type="text"
                                     required
-                                    className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                                    className="mt-1 block w-full border border-gray-300 dark:border-slate-700 rounded-md shadow-sm py-2 px-3 bg-white dark:bg-slate-900 text-gray-900 dark:text-white focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                                     value={newPatient.name}
                                     onChange={e => setNewPatient({ ...newPatient, name: e.target.value })}
                                 />
                             </div>
                             <div className="grid grid-cols-2 gap-4">
                                 <div>
-                                    <label className="block text-sm font-medium text-gray-700">Age</label>
+                                    <label className="block text-sm font-medium text-gray-700 dark:text-slate-300">Age</label>
                                     <input
                                         type="number"
-                                        className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                                        className="mt-1 block w-full border border-gray-300 dark:border-slate-700 rounded-md shadow-sm py-2 px-3 bg-white dark:bg-slate-900 text-gray-900 dark:text-white focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                                         value={newPatient.age}
                                         onChange={e => setNewPatient({ ...newPatient, age: e.target.value })}
                                     />
                                 </div>
                                 <div>
-                                    <label className="block text-sm font-medium text-gray-700">Gender</label>
+                                    <label className="block text-sm font-medium text-gray-700 dark:text-slate-300">Gender</label>
                                     <select
-                                        className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm py-2 px-3 focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                                        className="mt-1 block w-full border border-gray-300 dark:border-slate-700 rounded-md shadow-sm py-2 px-3 bg-white dark:bg-slate-900 text-gray-900 dark:text-white focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
                                         value={newPatient.gender}
                                         onChange={e => setNewPatient({ ...newPatient, gender: e.target.value })}
                                     >
@@ -283,7 +283,7 @@ export default function Patients() {
                                 <button
                                     type="button"
                                     onClick={() => setShowAddModal(false)}
-                                    className="bg-white py-2 px-4 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 hover:bg-gray-50 focus:outline-none"
+                                    className="bg-white dark:bg-slate-800 py-2 px-4 border border-gray-300 dark:border-slate-700 rounded-md shadow-sm text-sm font-medium text-gray-700 dark:text-slate-300 hover:bg-gray-50 dark:hover:bg-slate-700 focus:outline-none"
                                 >
                                     Cancel
                                 </button>
@@ -303,22 +303,21 @@ export default function Patients() {
             {selectedPatient && (
                 <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 backdrop-blur-md transition-opacity duration-300">
                     <div
-                        className="bg-white rounded-3xl shadow-2xl max-w-2xl w-full overflow-y-auto max-h-[90vh] relative animate-fade-in-up flex flex-col md:flex-row"
+                        className="bg-white dark:bg-slate-800 rounded-3xl shadow-2xl max-w-2xl w-full overflow-y-auto max-h-[90vh] relative animate-fade-in-up flex flex-col md:flex-row border border-transparent dark:border-slate-700"
                         style={{ animation: 'fadeInUp 0.3s ease-out forwards' }}
                     >
                         {/* Close Button */}
                         <button
                             onClick={() => setSelectedPatient(null)}
-                            className="absolute top-4 right-4 p-2 bg-gray-100 hover:bg-gray-200 rounded-full transition-all duration-200 z-10"
+                            className="absolute top-4 right-4 p-2 bg-gray-100 dark:bg-slate-700 hover:bg-gray-200 dark:hover:bg-slate-600 rounded-full transition-all duration-200 z-10"
                         >
-                            <X size={20} className="text-gray-500" />
+                            <X size={20} className="text-gray-500 dark:text-slate-400" />
                         </button>
 
                         {/* Left Sidebar - Profile */}
-                        <div className="w-full md:w-[40%] bg-gray-50/50 p-8 flex flex-col items-center border-b md:border-b-0 md:border-r border-gray-100">
-                            <div className="w-32 h-32 rounded-full p-1 border-2 border-gray-200 mb-4 flex items-center justify-center relative">
-                                <div className="w-full h-full bg-blue-50 rounded-full flex items-center justify-center overflow-hidden">
-                                    {/* Professional Avatar using Initials or Vector style if available. Using 'micah' which is cleaner vector art than avataaars, or back to initials if preferred. Let's try 'micah' first as it's cleaner vector art similar to reference. */}
+                        <div className="w-full md:w-[40%] bg-gray-50/50 dark:bg-slate-900/50 p-8 flex flex-col items-center border-b md:border-b-0 md:border-r border-gray-100 dark:border-slate-700">
+                            <div className="w-32 h-32 rounded-full p-1 border-2 border-gray-200 dark:border-slate-700 mb-4 flex items-center justify-center relative">
+                                <div className="w-full h-full bg-blue-50 dark:bg-slate-800 rounded-full flex items-center justify-center overflow-hidden">
                                     <img
                                         src={`https://api.dicebear.com/7.x/micah/svg?seed=${selectedPatient.name}&backgroundColor=b6e3f4`}
                                         alt="avatar"
@@ -327,7 +326,7 @@ export default function Patients() {
                                 </div>
                             </div>
 
-                            <h2 className="text-xl font-bold text-gray-900 mb-2 text-center">{selectedPatient.name}</h2>
+                            <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-2 text-center">{selectedPatient.name}</h2>
 
                             {/* Pink PID Badge - Matches Reference */}
                             <div className="bg-[#d946ef] text-white px-6 py-1.5 rounded-full text-sm font-bold tracking-wide shadow-sm mb-6">
@@ -339,18 +338,18 @@ export default function Patients() {
                         </div>
 
                         {/* Right Content - Details */}
-                        <div className="w-full md:w-[60%] p-6 md:p-10 bg-white">
+                        <div className="w-full md:w-[60%] p-6 md:p-10 bg-white dark:bg-slate-800">
                             <div className="flex items-center justify-between mb-8">
                                 <div className="flex items-center gap-3">
                                     <div className="bg-blue-600 text-white p-1.5 rounded-full">
                                         <User size={16} />
                                     </div>
-                                    <h3 className="text-lg font-bold text-gray-900">Personal Information</h3>
+                                    <h3 className="text-lg font-bold text-gray-900 dark:text-white">Personal Information</h3>
                                 </div>
                                 {!isTeacher && (
                                     <button
                                         onClick={() => setEditMode(!editMode)}
-                                        className="text-xs font-bold text-blue-600 hover:text-blue-700"
+                                        className="text-xs font-bold text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300"
                                     >
                                         {editMode ? 'Cancel Edit' : 'Edit Info'}
                                     </button>
@@ -359,36 +358,36 @@ export default function Patients() {
 
                             <form onSubmit={handleUpdatePatient} className="grid grid-cols-2 gap-y-6 md:gap-y-8 gap-x-4">
                                 <div>
-                                    <p className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-1">Full Name</p>
+                                    <p className="text-xs font-bold text-gray-400 dark:text-slate-500 uppercase tracking-wider mb-1">Full Name</p>
                                     {editMode ? (
                                         <input
                                             type="text"
-                                            className="w-full px-3 py-2 border rounded-lg text-sm"
+                                            className="w-full px-3 py-2 border dark:border-slate-700 rounded-lg text-sm bg-white dark:bg-slate-900 text-gray-900 dark:text-white"
                                             value={selectedPatient.name}
                                             onChange={e => setSelectedPatient({ ...selectedPatient, name: e.target.value })}
                                         />
                                     ) : (
-                                        <p className="text-base md:text-lg font-bold text-gray-900">{selectedPatient.name}</p>
+                                        <p className="text-base md:text-lg font-bold text-gray-900 dark:text-white">{selectedPatient.name}</p>
                                     )}
                                 </div>
                                 <div>
-                                    <p className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-1">Age</p>
+                                    <p className="text-xs font-bold text-gray-400 dark:text-slate-500 uppercase tracking-wider mb-1">Age</p>
                                     {editMode ? (
                                         <input
                                             type="number"
-                                            className="w-full px-3 py-2 border rounded-lg text-sm"
+                                            className="w-full px-3 py-2 border dark:border-slate-700 rounded-lg text-sm bg-white dark:bg-slate-900 text-gray-900 dark:text-white"
                                             value={selectedPatient.age || ''}
                                             onChange={e => setSelectedPatient({ ...selectedPatient, age: e.target.value })}
                                         />
                                     ) : (
-                                        <p className="text-base md:text-lg font-bold text-gray-900">{selectedPatient.age || '-'}</p>
+                                        <p className="text-base md:text-lg font-bold text-gray-900 dark:text-white">{selectedPatient.age || '-'}</p>
                                     )}
                                 </div>
                                 <div>
-                                    <p className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-1">Gender</p>
+                                    <p className="text-xs font-bold text-gray-400 dark:text-slate-500 uppercase tracking-wider mb-1">Gender</p>
                                     {editMode ? (
                                         <select
-                                            className="w-full px-3 py-2 border rounded-lg text-sm"
+                                            className="w-full px-3 py-2 border dark:border-slate-700 rounded-lg text-sm bg-white dark:bg-slate-900 text-gray-900 dark:text-white"
                                             value={selectedPatient.gender}
                                             onChange={e => setSelectedPatient({ ...selectedPatient, gender: e.target.value })}
                                         >
@@ -397,33 +396,33 @@ export default function Patients() {
                                             <option>Other</option>
                                         </select>
                                     ) : (
-                                        <p className="text-base md:text-lg font-bold text-gray-900">{selectedPatient.gender || '-'}</p>
+                                        <p className="text-base md:text-lg font-bold text-gray-900 dark:text-white">{selectedPatient.gender || '-'}</p>
                                     )}
                                 </div>
 
                                 <div className="col-span-2">
-                                    <p className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-1">Notes</p>
+                                    <p className="text-xs font-bold text-gray-400 dark:text-slate-500 uppercase tracking-wider mb-1">Notes</p>
                                     {editMode ? (
                                         <textarea
-                                            className="w-full px-3 py-2 border rounded-lg text-sm min-h-[100px]"
+                                            className="w-full px-3 py-2 border dark:border-slate-700 rounded-lg text-sm min-h-[100px] bg-white dark:bg-slate-900 text-gray-900 dark:text-white"
                                             value={selectedPatient.notes || ''}
                                             onChange={e => setSelectedPatient({ ...selectedPatient, notes: e.target.value })}
                                         />
                                     ) : (
-                                        <p className="text-sm text-gray-600 italic font-medium bg-gray-50 p-3 rounded-xl border border-dashed border-gray-200">
+                                        <p className="text-sm text-gray-600 dark:text-slate-300 italic font-medium bg-gray-50 dark:bg-slate-900/50 p-3 rounded-xl border border-dashed border-gray-200 dark:border-slate-700">
                                             {selectedPatient.notes || 'No notes available.'}
                                         </p>
                                     )}
                                 </div>
 
                                 <div className="col-span-2">
-                                    <p className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-1">Institution Name</p>
-                                    <p className="text-base md:text-lg font-bold text-gray-900">
+                                    <p className="text-xs font-bold text-gray-400 dark:text-slate-500 uppercase tracking-wider mb-1">Institution Name</p>
+                                    <p className="text-base md:text-lg font-bold text-gray-900 dark:text-white">
                                         {selectedPatient.sections?.school_name || 'Not Available'}
                                     </p>
                                     <div className="mt-2 flex items-center text-xs">
-                                        <span className="text-gray-400 font-medium">Class: </span>
-                                        <span className="ml-1 font-bold text-blue-600">{selectedPatient.sections?.name || '-'}</span>
+                                        <span className="text-gray-400 dark:text-slate-500 font-medium">Class: </span>
+                                        <span className="ml-1 font-bold text-blue-600 dark:text-blue-400">{selectedPatient.sections?.name || '-'}</span>
                                     </div>
                                 </div>
 

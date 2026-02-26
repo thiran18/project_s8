@@ -34,14 +34,14 @@ export default function Layout() {
     ]
 
     return (
-        <div className="min-h-screen bg-slate-50 flex">
+        <div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex transition-colors duration-300">
             {/* Sidebar - Desktop */}
-            <aside className="hidden md:flex flex-col w-64 bg-white border-r border-gray-200">
+            <aside className="hidden md:flex flex-col w-64 bg-white dark:bg-slate-900 border-r border-gray-200 dark:border-slate-800">
                 <div className="p-6 flex items-center space-x-3">
                     <div className="w-10 h-10">
-                        <img src="/newLOGO.png" alt="HearPulse Logo" className="w-full h-full object-contain" />
+                        <img src="/newLOGO.png" alt="HearPulse Logo" className="w-full h-full object-contain dark:invert" />
                     </div>
-                    <span className="text-xl font-bold text-gray-900">HearPulse</span>
+                    <span className="text-xl font-bold text-gray-900 dark:text-white">HearPulse</span>
                 </div>
 
                 <nav className="flex-1 px-4 space-y-2 mt-4">
@@ -53,11 +53,11 @@ export default function Layout() {
                                 key={item.path}
                                 to={item.path}
                                 className={`flex items-center space-x-3 px-4 py-3 rounded-lg transition-colors ${isActive
-                                    ? 'bg-blue-50 text-blue-700'
-                                    : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
+                                    ? 'bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400'
+                                    : 'text-gray-600 dark:text-slate-400 hover:bg-gray-50 dark:hover:bg-slate-800/50 hover:text-gray-900 dark:hover:text-white'
                                     }`}
                             >
-                                <Icon className={`w-5 h-5 ${isActive ? 'text-blue-600' : 'text-gray-400'}`} />
+                                <Icon className={`w-5 h-5 ${isActive ? 'text-blue-600 dark:text-blue-400' : 'text-gray-400 dark:text-slate-500'}`} />
                                 <span className="font-medium">{item.name}</span>
                             </Link>
                         )
@@ -68,23 +68,23 @@ export default function Layout() {
             {/* Main Content */}
             <div className="flex-1 flex flex-col min-w-0 overflow-hidden">
                 {/* Desktop Header with User Profile */}
-                <header className="hidden md:flex bg-white border-b border-gray-200 items-center justify-end px-8 py-3">
+                <header className="hidden md:flex bg-white dark:bg-slate-900 border-b border-gray-200 dark:border-slate-800 items-center justify-end px-8 py-3">
                     <div className="flex items-center space-x-4">
-                        <div className="flex items-center space-x-3 px-4 py-2 rounded-lg hover:bg-gray-50 transition-colors">
-                            <div className="w-9 h-9 rounded-full bg-blue-100 flex items-center justify-center text-blue-700 font-bold">
+                        <div className="flex items-center space-x-3 px-4 py-2 rounded-lg hover:bg-gray-50 dark:hover:bg-slate-800 transition-colors">
+                            <div className="w-9 h-9 rounded-full bg-blue-100 dark:bg-blue-900 flex items-center justify-center text-blue-700 dark:text-blue-200 font-bold">
                                 {user?.email?.[0].toUpperCase()}
                             </div>
                             <div className="overflow-hidden">
-                                <p className="text-sm font-medium text-gray-900 truncate">{user?.email}</p>
+                                <p className="text-sm font-medium text-gray-900 dark:text-white truncate">{user?.email}</p>
                                 <div className="flex items-center space-x-1">
                                     {isTeacher && <BookOpen className="w-3 h-3 text-gray-400" />}
-                                    <p className="text-xs text-gray-500 capitalize">{userProfile?.role || 'User'}</p>
+                                    <p className="text-xs text-gray-500 dark:text-gray-400 capitalize">{userProfile?.role || 'User'}</p>
                                 </div>
                             </div>
                         </div>
                         <button
                             onClick={handleSignOut}
-                            className="flex items-center space-x-2 text-red-600 hover:bg-red-50 px-4 py-2 rounded-lg transition-colors"
+                            className="flex items-center space-x-2 text-red-600 hover:bg-red-50 dark:hover:bg-red-900/20 px-4 py-2 rounded-lg transition-colors"
                         >
                             <LogOut className="w-5 h-5" />
                             <span className="font-medium">Sign Out</span>
@@ -93,16 +93,16 @@ export default function Layout() {
                 </header>
 
                 {/* Mobile Header */}
-                <header className="md:hidden bg-white border-b border-gray-200 flex items-center justify-between p-4 sticky top-0 z-40">
+                <header className="md:hidden bg-white dark:bg-slate-900 border-b border-gray-200 dark:border-slate-800 flex items-center justify-between p-4 sticky top-0 z-40">
                     <div className="flex items-center space-x-2">
                         <div className="w-8 h-8">
-                            <img src="/newLOGO.png" alt="HearPulse Logo" className="w-full h-full object-contain" />
+                            <img src="/newLOGO.png" alt="HearPulse Logo" className="w-full h-full object-contain dark:invert" />
                         </div>
-                        <span className="text-lg font-bold text-gray-900">HearPulse</span>
+                        <span className="text-lg font-bold text-gray-900 dark:text-white">HearPulse</span>
                     </div>
                     <button
                         onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-                        className="p-2 -mr-2 text-gray-600 hover:text-gray-900 focus:outline-none"
+                        className="p-2 -mr-2 text-gray-600 dark:text-slate-400 hover:text-gray-900 dark:hover:text-white focus:outline-none"
                     >
                         {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
                     </button>
@@ -110,18 +110,18 @@ export default function Layout() {
 
                 {/* Mobile Menu Overlay */}
                 {isMobileMenuOpen && (
-                    <div className="md:hidden fixed inset-0 z-50 bg-white overflow-y-auto">
+                    <div className="md:hidden fixed inset-0 z-50 bg-white dark:bg-slate-950 overflow-y-auto transition-colors">
                         <div className="flex flex-col h-full">
-                            <div className="flex items-center justify-between p-4 border-b border-gray-100">
+                            <div className="flex items-center justify-between p-4 border-b border-gray-100 dark:border-slate-800">
                                 <div className="flex items-center space-x-2">
                                     <div className="w-8 h-8">
-                                        <img src="/newLOGO.png" alt="HearPulse Logo" className="w-full h-full object-contain" />
+                                        <img src="/newLOGO.png" alt="HearPulse Logo" className="w-full h-full object-contain dark:invert" />
                                     </div>
-                                    <span className="text-lg font-bold">Menu</span>
+                                    <span className="text-lg font-bold text-gray-900 dark:text-white">Menu</span>
                                 </div>
                                 <button
                                     onClick={() => setIsMobileMenuOpen(false)}
-                                    className="p-2 -mr-2 text-gray-400 hover:text-gray-600 focus:outline-none"
+                                    className="p-2 -mr-2 text-gray-400 dark:text-slate-500 hover:text-gray-600 dark:hover:text-slate-300 focus:outline-none"
                                 >
                                     <X size={24} />
                                 </button>
@@ -138,30 +138,30 @@ export default function Layout() {
                                                 to={item.path}
                                                 onClick={() => setIsMobileMenuOpen(false)}
                                                 className={`flex items-center space-x-4 p-4 rounded-xl transition-colors ${isActive
-                                                    ? 'bg-blue-50 text-blue-700'
-                                                    : 'text-gray-600 hover:bg-gray-50'
+                                                    ? 'bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400'
+                                                    : 'text-gray-600 dark:text-slate-400 hover:bg-gray-50 dark:hover:bg-slate-900'
                                                     }`}
                                             >
-                                                <Icon className={`w-6 h-6 ${isActive ? 'text-blue-600' : 'text-gray-400'}`} />
+                                                <Icon className={`w-6 h-6 ${isActive ? 'text-blue-600 dark:text-blue-400' : 'text-gray-400 dark:text-slate-500'}`} />
                                                 <span className="text-lg font-semibold">{item.name}</span>
                                             </Link>
                                         )
                                     })}
                                 </nav>
 
-                                <div className="mt-8 pt-8 border-t border-gray-100 space-y-4 px-2">
+                                <div className="mt-8 pt-8 border-t border-gray-100 dark:border-slate-800 space-y-4 px-2">
                                     <div className="flex items-center space-x-3 py-2">
-                                        <div className="w-12 h-12 rounded-full bg-blue-100 flex items-center justify-center text-blue-700 font-bold text-xl">
+                                        <div className="w-12 h-12 rounded-full bg-blue-100 dark:bg-blue-900 flex items-center justify-center text-blue-700 dark:text-blue-200 font-bold text-xl">
                                             {user?.email?.[0].toUpperCase()}
                                         </div>
                                         <div className="flex-1 min-w-0">
-                                            <p className="text-sm font-bold text-gray-900 truncate">{user?.email}</p>
-                                            <p className="text-xs text-gray-500 capitalize">{userProfile?.role || 'User'}</p>
+                                            <p className="text-sm font-bold text-gray-900 dark:text-white truncate">{user?.email}</p>
+                                            <p className="text-xs text-gray-500 dark:text-slate-400 capitalize">{userProfile?.role || 'User'}</p>
                                         </div>
                                     </div>
                                     <button
                                         onClick={handleSignOut}
-                                        className="flex items-center space-x-4 p-4 w-full text-red-600 rounded-xl hover:bg-red-50 transition-colors"
+                                        className="flex items-center space-x-4 p-4 w-full text-red-600 dark:text-red-400 rounded-xl hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors"
                                     >
                                         <LogOut className="w-6 h-6" />
                                         <span className="text-lg font-bold">Sign Out</span>

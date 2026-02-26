@@ -85,30 +85,30 @@ export default function Auth() {
     }
 
     return (
-        <div className="min-h-screen bg-slate-50 flex flex-col justify-center items-center p-4">
+        <div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex flex-col justify-center items-center p-4 transition-colors">
             {/* Header / Logo Section */}
             <div className="text-center mb-8">
                 <div className="w-24 h-24 mx-auto mb-4">
-                    <img src="/newLOGO.png" alt="HearPulse Logo" className="w-full h-full object-contain" />
+                    <img src="/newLOGO.png" alt="HearPulse Logo" className="w-full h-full object-contain dark:filter" />
                 </div>
-                <h1 className="text-3xl font-extrabold text-gray-900 tracking-tight">HearPulse</h1>
-                <p className="text-gray-500 mt-2">Mobile-First Digital Audiometry Platform</p>
+                <h1 className="text-3xl font-extrabold text-gray-900 dark:text-white tracking-tight">HearPulse</h1>
+                <p className="text-gray-500 dark:text-slate-400 mt-2">Mobile-First Digital Audiometry Platform</p>
             </div>
 
             {/* Main Card */}
-            <div className="bg-white w-full max-w-md rounded-3xl shadow-xl overflow-hidden p-8">
+            <div className="bg-white dark:bg-slate-900 w-full max-w-md rounded-3xl shadow-xl dark:shadow-2xl overflow-hidden p-8 border border-gray-100 dark:border-slate-800">
 
                 {/* Tab Switcher */}
-                <div className="bg-gray-100 p-1 rounded-xl flex mb-8">
+                <div className="bg-gray-100 dark:bg-slate-800 p-1 rounded-xl flex mb-8">
                     <Link
                         to="/login"
-                        className={`flex-1 text-center py-2.5 text-sm font-semibold rounded-lg transition-all ${!isRegister ? 'bg-white text-gray-900 shadow-sm' : 'text-gray-500 hover:text-gray-700'}`}
+                        className={`flex-1 text-center py-2.5 text-sm font-semibold rounded-lg transition-all ${!isRegister ? 'bg-white dark:bg-slate-700 text-gray-900 dark:text-white shadow-sm' : 'text-gray-500 hover:text-gray-700 dark:text-slate-500 dark:hover:text-slate-300'}`}
                     >
                         Sign In
                     </Link>
                     <Link
                         to="/register"
-                        className={`flex-1 text-center py-2.5 text-sm font-semibold rounded-lg transition-all ${isRegister ? 'bg-white text-gray-900 shadow-sm' : 'text-gray-500 hover:text-gray-700'}`}
+                        className={`flex-1 text-center py-2.5 text-sm font-semibold rounded-lg transition-all ${isRegister ? 'bg-white dark:bg-slate-700 text-gray-900 dark:text-white shadow-sm' : 'text-gray-500 hover:text-gray-700 dark:text-slate-500 dark:hover:text-slate-300'}`}
                     >
                         Register
                     </Link>
@@ -117,17 +117,17 @@ export default function Auth() {
                 {/* Form */}
                 <form onSubmit={handleSubmit} className="space-y-5">
                     {error && (
-                        <div className="bg-red-50 text-red-600 text-sm p-3 rounded-lg border border-red-100">
+                        <div className="bg-red-50 dark:bg-red-900/20 text-red-600 dark:text-red-400 text-sm p-3 rounded-lg border border-red-100 dark:border-red-900/30">
                             {error}
                         </div>
                     )}
 
                     {isRegister && (
                         <div className="space-y-2">
-                            <label className="text-sm font-medium text-gray-700">Full Name</label>
+                            <label className="text-sm font-medium text-gray-700 dark:text-slate-300">Full Name</label>
                             <div className="relative">
                                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                    <User className="h-5 w-5 text-gray-400" />
+                                    <User className="h-5 w-5 text-gray-400 dark:text-slate-500" />
                                 </div>
                                 <input
                                     name="fullName"
@@ -135,7 +135,7 @@ export default function Auth() {
                                     required={isRegister}
                                     value={formData.fullName}
                                     onChange={handleChange}
-                                    className="block w-full pl-10 border-gray-200 rounded-xl focus:ring-blue-500 focus:border-blue-500 py-3 bg-white border"
+                                    className="block w-full pl-10 border-gray-200 dark:border-slate-800 rounded-xl focus:ring-blue-500 focus:border-blue-500 py-3 bg-white dark:bg-slate-950 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-slate-600 border"
                                     placeholder="John Doe"
                                 />
                             </div>
@@ -144,22 +144,22 @@ export default function Auth() {
 
                     {isRegister && (
                         <div className="space-y-2">
-                            <label className="text-sm font-medium text-gray-700">Select Your Role</label>
+                            <label className="text-sm font-medium text-gray-700 dark:text-slate-300">Select Your Role</label>
                             <div className="grid grid-cols-2 gap-3">
                                 <button
                                     type="button"
                                     onClick={() => setFormData({ ...formData, role: 'clinician' })}
                                     className={`relative p-4 border-2 rounded-xl transition-all ${formData.role === 'clinician'
-                                        ? 'border-blue-600 bg-blue-50'
-                                        : 'border-gray-200 hover:border-gray-300'
+                                        ? 'border-blue-600 bg-blue-50 dark:bg-blue-900/20 dark:border-blue-500'
+                                        : 'border-gray-200 dark:border-slate-800 hover:border-gray-300 dark:hover:border-slate-700 bg-transparent'
                                         }`}
                                 >
                                     <div className="flex flex-col items-center text-center space-y-2">
-                                        <User className={`w-6 h-6 ${formData.role === 'clinician' ? 'text-blue-600' : 'text-gray-400'}`} />
-                                        <span className={`text-sm font-medium ${formData.role === 'clinician' ? 'text-blue-900' : 'text-gray-700'}`}>
+                                        <User className={`w-6 h-6 ${formData.role === 'clinician' ? 'text-blue-600 dark:text-blue-400' : 'text-gray-400 dark:text-slate-600'}`} />
+                                        <span className={`text-sm font-medium ${formData.role === 'clinician' ? 'text-blue-900 dark:text-blue-200' : 'text-gray-700 dark:text-slate-400'}`}>
                                             Clinician
                                         </span>
-                                        <span className="text-xs text-gray-500">Full Access</span>
+                                        <span className="text-xs text-gray-500 dark:text-slate-500">Full Access</span>
                                     </div>
                                     {formData.role === 'clinician' && (
                                         <div className="absolute top-2 right-2 w-4 h-4 bg-blue-600 rounded-full flex items-center justify-center">
@@ -173,16 +173,16 @@ export default function Auth() {
                                     type="button"
                                     onClick={() => setFormData({ ...formData, role: 'teacher' })}
                                     className={`relative p-4 border-2 rounded-xl transition-all ${formData.role === 'teacher'
-                                        ? 'border-blue-600 bg-blue-50'
-                                        : 'border-gray-200 hover:border-gray-300'
+                                        ? 'border-blue-600 bg-blue-50 dark:bg-blue-900/20 dark:border-blue-500'
+                                        : 'border-gray-200 dark:border-slate-800 hover:border-gray-300 dark:hover:border-slate-700 bg-transparent'
                                         }`}
                                 >
                                     <div className="flex flex-col items-center text-center space-y-2">
-                                        <School className={`w-6 h-6 ${formData.role === 'teacher' ? 'text-blue-600' : 'text-gray-400'}`} />
-                                        <span className={`text-sm font-medium ${formData.role === 'teacher' ? 'text-blue-900' : 'text-gray-700'}`}>
+                                        <School className={`w-6 h-6 ${formData.role === 'teacher' ? 'text-blue-600 dark:text-blue-400' : 'text-gray-400 dark:text-slate-600'}`} />
+                                        <span className={`text-sm font-medium ${formData.role === 'teacher' ? 'text-blue-900 dark:text-blue-200' : 'text-gray-700 dark:text-slate-400'}`}>
                                             Teacher
                                         </span>
-                                        <span className="text-xs text-gray-500">View Only</span>
+                                        <span className="text-xs text-gray-500 dark:text-slate-500">View Only</span>
                                     </div>
                                     {formData.role === 'teacher' && (
                                         <div className="absolute top-2 right-2 w-4 h-4 bg-blue-600 rounded-full flex items-center justify-center">
@@ -197,10 +197,10 @@ export default function Auth() {
                     )}
 
                     <div className="space-y-2">
-                        <label className="text-sm font-medium text-gray-700">Email Address</label>
+                        <label className="text-sm font-medium text-gray-700 dark:text-slate-300">Email Address</label>
                         <div className="relative">
                             <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                <Mail className="h-5 w-5 text-gray-400" />
+                                <Mail className="h-5 w-5 text-gray-400 dark:text-slate-500" />
                             </div>
                             <input
                                 name="email"
@@ -208,17 +208,17 @@ export default function Auth() {
                                 required
                                 value={formData.email}
                                 onChange={handleChange}
-                                className="block w-full pl-10 border-gray-200 rounded-xl focus:ring-blue-500 focus:border-blue-500 py-3 bg-white border"
+                                className="block w-full pl-10 border-gray-200 dark:border-slate-800 rounded-xl focus:ring-blue-500 focus:border-blue-500 py-3 bg-white dark:bg-slate-950 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-slate-600 border"
                                 placeholder="doctor@clinic.com"
                             />
                         </div>
                     </div>
 
                     <div className="space-y-2">
-                        <label className="text-sm font-medium text-gray-700">Password</label>
+                        <label className="text-sm font-medium text-gray-700 dark:text-slate-300">Password</label>
                         <div className="relative">
                             <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                <Lock className="h-5 w-5 text-gray-400" />
+                                <Lock className="h-5 w-5 text-gray-400 dark:text-slate-500" />
                             </div>
                             <input
                                 name="password"
@@ -226,7 +226,7 @@ export default function Auth() {
                                 required
                                 value={formData.password}
                                 onChange={handleChange}
-                                className="block w-full pl-10 border-gray-200 rounded-xl focus:ring-blue-500 focus:border-blue-500 py-3 bg-white border"
+                                className="block w-full pl-10 border-gray-200 dark:border-slate-800 rounded-xl focus:ring-blue-500 focus:border-blue-500 py-3 bg-white dark:bg-slate-950 text-gray-900 dark:text-white placeholder-gray-400 dark:placeholder-slate-600 border"
                                 placeholder="••••••••"
                                 minLength={6}
                             />
@@ -248,7 +248,7 @@ export default function Auth() {
             </div>
 
             {/* Footer */}
-            <p className="mt-8 text-center text-sm text-gray-400">
+            <p className="mt-8 text-center text-sm text-gray-400 dark:text-slate-500">
                 Professional Tool for Clinical and School Screenings.
             </p>
         </div>

@@ -1,44 +1,56 @@
-
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { Activity, Play } from 'lucide-react'
+import { Activity } from 'lucide-react'
+import authBg from '../assets/auth-bg.png'
 
 export default function Home() {
     return (
-        <div className="min-h-screen bg-slate-50 flex flex-col items-center justify-center p-4">
-            <div className="bg-white p-8 rounded-2xl shadow-xl max-w-md w-full text-center space-y-6">
-                <div className="flex justify-center">
-
-                    <div className="w-24 h-24 mx-auto mb-4">
-                        <img src="/newLOGO.png" alt="HearPulse Logo" className="w-full h-full object-contain" />
+        <div className="min-h-screen bg-[#0F111A] flex font-outfit">
+            <div className="w-full flex flex-col md:flex-row border-slate-800/50">
+                {/* Left Side - Image/Branding */}
+                <div className="hidden md:block md:w-1/2 relative">
+                    <img
+                        src={authBg}
+                        alt="Branding"
+                        className="absolute inset-0 w-full h-full object-cover"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#0F111A] via-transparent to-transparent opacity-60" />
+                    <div className="absolute bottom-12 left-12 right-12 text-white">
+                        <div className="flex items-center space-x-3 mb-6">
+                            <div className="p-3 bg-blue-600 rounded-2xl shadow-lg shadow-blue-500/20">
+                                <Activity size={32} />
+                            </div>
+                            <h1 className="text-4xl font-bold tracking-tight">HearPulse</h1>
+                        </div>
                     </div>
                 </div>
 
-                <h1 className="text-3xl font-bold text-gray-900 tracking-tight">
-                    HearPulse
-                </h1>
-                <p className="text-gray-500 text-lg">
-                    Professional Digital Audiometer for quick and accurate hearing screening.
-                </p>
+                {/* Right Side - Actions */}
+                <div className="w-full md:w-1/2 p-8 sm:p-12 lg:p-16 flex flex-col justify-center bg-[#1A1D2B]">
+                    <div className="max-w-md mx-auto w-full text-center md:text-left">
+                        <div className="mb-10">
+                            <h2 className="text-5xl font-extrabold text-white mb-4 tracking-tight">
+                                HearPulse
+                            </h2>
+                            <p className="text-xl text-slate-400 font-light leading-relaxed">
+                                Professional Digital Audiometer for quick and accurate hearing screening.
+                            </p>
+                        </div>
 
-                <div className="space-y-3 pt-4">
-                    <Link
-                        to="/login"
-                        className="block w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-200 shadow-md hover:shadow-lg"
-                    >
-                        Sign In to Dashboard
-                    </Link>
-                    <Link
-                        to="/test"
-                        className="block w-full bg-gray-100 hover:bg-gray-200 text-gray-800 font-semibold py-3 px-6 rounded-lg transition-colors border border-gray-200"
-                    >
-                        Start Guest Screening
-                    </Link>
+                        <div className="space-y-4 pt-4">
+                            <Link
+                                to="/login"
+                                className="block w-full py-4 px-6 bg-blue-600 hover:bg-blue-500 text-white text-lg font-bold rounded-2xl shadow-lg shadow-blue-600/20 transform transition-all active:scale-[0.98] text-center"
+                            >
+                                Sign In to Dashboard
+                            </Link>
+                        </div>
+
+                        <p className="text-sm text-center text-slate-500 mt-12 font-medium">
+                            Calibrated for standard headphones.
+                        </p>
+                    </div>
                 </div>
-
-                <p className="text-xs text-center text-gray-400 mt-8">
-                    Calibrated for standard headphones.
-                </p>
             </div>
         </div>
     )

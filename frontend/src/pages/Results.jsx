@@ -44,11 +44,11 @@ const ReportEditor = ({ screeningId, initialReport, isClinician }) => {
 
     if (!isClinician) {
         return (
-            <div className="text-sm text-gray-800 bg-white/50 p-4 rounded-xl border border-purple-100">
+            <div className="text-sm text-gray-800 dark:text-slate-200 bg-white/50 dark:bg-slate-900/50 p-4 rounded-xl border border-purple-100 dark:border-purple-900/30">
                 {initialReport ? (
                     <p className="whitespace-pre-wrap">{initialReport}</p>
                 ) : (
-                    <p className="text-gray-500 italic">Pending clinical review.</p>
+                    <p className="text-gray-500 dark:text-slate-500 italic">Pending clinical review.</p>
                 )}
             </div>
         )
@@ -57,7 +57,7 @@ const ReportEditor = ({ screeningId, initialReport, isClinician }) => {
     return (
         <div className="space-y-3">
             <textarea
-                className="w-full p-4 rounded-xl border border-purple-200 focus:ring-2 focus:ring-purple-500 outline-none text-sm min-h-[120px] bg-white"
+                className="w-full p-4 rounded-xl border border-purple-200 dark:border-purple-900/40 focus:ring-2 focus:ring-purple-500 outline-none text-sm min-h-[120px] bg-white dark:bg-slate-950 text-gray-900 dark:text-white placeholder-slate-400 dark:placeholder-slate-600"
                 placeholder="Enter clinical findings, recommendations, and next steps..."
                 value={report}
                 onChange={(e) => setReport(e.target.value)}
@@ -370,28 +370,28 @@ export default function Results() {
             {/* Header */}
             <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
                 <div className="flex items-center space-x-4 w-full md:w-auto">
-                    <Link to="/dashboard" className="p-2 hover:bg-gray-100 rounded-full transition-colors flex-shrink-0">
-                        <ArrowLeft className="w-5 h-5 text-gray-500" />
+                    <Link to="/dashboard" className="p-2 hover:bg-gray-100 dark:hover:bg-slate-800 rounded-full transition-colors flex-shrink-0">
+                        <ArrowLeft className="w-5 h-5 text-gray-500 dark:text-slate-400" />
                     </Link>
                     <div className="min-w-0 flex-1">
-                        <h1 className="text-xl sm:text-2xl font-bold text-gray-900 truncate">Clinical Audiogram</h1>
-                        <p className="text-sm sm:text-base text-gray-500 truncate">Patient: <span className="font-semibold text-gray-900">{patient?.name}</span></p>
+                        <h1 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white truncate">Clinical Audiogram</h1>
+                        <p className="text-sm sm:text-base text-gray-500 dark:text-slate-400 truncate">Patient: <span className="font-semibold text-gray-900 dark:text-slate-200">{patient?.name}</span></p>
                     </div>
                 </div>
                 <div className="flex flex-wrap items-center gap-2 w-full md:w-auto">
-                    <button onClick={() => window.print()} className="p-2 text-gray-500 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors">
+                    <button onClick={() => window.print()} className="p-2 text-gray-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 rounded-lg transition-colors">
                         <Printer className="w-5 h-5" />
                     </button>
-                    <button className="p-2 text-gray-500 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors">
+                    <button className="p-2 text-gray-500 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/30 rounded-lg transition-colors">
                         <Share2 className="w-5 h-5" />
                     </button>
-                    <span className={`px-3 py-1 sm:px-4 sm:py-2 rounded-full font-bold text-xs sm:text-sm whitespace-nowrap ${grade.includes('Grade 0') ? 'bg-green-100 text-green-800' :
-                        grade.includes('Grade 1') ? 'bg-yellow-100 text-yellow-800' :
-                            grade.includes('Grade 2') ? 'bg-orange-100 text-orange-800' :
-                                grade.includes('Grade 3') ? 'bg-orange-200 text-orange-900' :
-                                    grade.includes('Grade 4') ? 'bg-red-100 text-red-800' :
-                                        grade.includes('Grade 5') ? 'bg-red-200 text-red-900' :
-                                            'bg-gray-100 text-gray-800'
+                    <span className={`px-3 py-1 sm:px-4 sm:py-2 rounded-full font-bold text-xs sm:text-sm whitespace-nowrap ${grade.includes('Grade 0') ? 'bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300' :
+                        grade.includes('Grade 1') ? 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-300' :
+                            grade.includes('Grade 2') ? 'bg-orange-100 dark:bg-orange-900/30 text-orange-800 dark:text-orange-300' :
+                                grade.includes('Grade 3') ? 'bg-orange-200 dark:bg-orange-900/50 text-orange-900 dark:text-orange-200' :
+                                    grade.includes('Grade 4') ? 'bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-300' :
+                                        grade.includes('Grade 5') ? 'bg-red-200 dark:bg-red-900/50 text-red-900 dark:text-red-200' :
+                                            'bg-gray-100 dark:bg-slate-700 text-gray-800 dark:text-slate-200'
                         }`}>
                         {grade.toUpperCase()}
                     </span>
@@ -400,50 +400,50 @@ export default function Results() {
 
             {/* Metrics Bar - Auto-stacking on mobile */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                <div className="bg-white p-4 rounded-xl shadow-sm border border-gray-100 flex flex-col items-center sm:items-start text-center sm:text-left transition-all hover:shadow-md">
-                    <span className="text-[10px] text-gray-400 font-bold uppercase tracking-widest mb-1">Right Ear PTA</span>
-                    <span className="text-2xl font-black text-red-500">{rightPTA} dB HL</span>
+                <div className="bg-white dark:bg-slate-900 p-4 rounded-xl shadow-sm border border-gray-100 dark:border-slate-700 flex flex-col items-center sm:items-start text-center sm:text-left transition-all hover:shadow-md dark:hover:bg-slate-800/50">
+                    <span className="text-[10px] text-gray-400 dark:text-slate-500 font-bold uppercase tracking-widest mb-1">Right Ear PTA</span>
+                    <span className="text-2xl font-black text-red-500 dark:text-red-400">{rightPTA} dB HL</span>
                 </div>
-                <div className="bg-white p-4 rounded-xl shadow-sm border border-gray-100 flex flex-col items-center sm:items-start text-center sm:text-left transition-all hover:shadow-md">
-                    <span className="text-[10px] text-gray-400 font-bold uppercase tracking-widest mb-1">Left Ear PTA</span>
-                    <span className="text-2xl font-black text-blue-500">{leftPTA} dB HL</span>
+                <div className="bg-white dark:bg-slate-900 p-4 rounded-xl shadow-sm border border-gray-100 dark:border-slate-700 flex flex-col items-center sm:items-start text-center sm:text-left transition-all hover:shadow-md dark:hover:bg-slate-800/50">
+                    <span className="text-[10px] text-gray-400 dark:text-slate-500 font-bold uppercase tracking-widest mb-1">Left Ear PTA</span>
+                    <span className="text-2xl font-black text-blue-500 dark:text-blue-400">{leftPTA} dB HL</span>
                 </div>
-                <div className="bg-white p-4 rounded-xl shadow-sm border border-gray-100 flex flex-col items-center sm:items-start text-center sm:text-left transition-all hover:shadow-md">
-                    <span className="text-[10px] text-gray-400 font-bold uppercase tracking-widest mb-1">Duration</span>
-                    <span className="text-2xl font-black text-gray-800">{duration}</span>
+                <div className="bg-white dark:bg-slate-900 p-4 rounded-xl shadow-sm border border-gray-100 dark:border-slate-700 flex flex-col items-center sm:items-start text-center sm:text-left transition-all hover:shadow-md dark:hover:bg-slate-800/50">
+                    <span className="text-[10px] text-gray-400 dark:text-slate-500 font-bold uppercase tracking-widest mb-1">Duration</span>
+                    <span className="text-2xl font-black text-gray-800 dark:text-slate-200">{duration}</span>
                 </div>
-                <div className="bg-white p-4 rounded-xl shadow-sm border border-gray-100 flex flex-col items-center sm:items-start text-center sm:text-left transition-all hover:shadow-md">
-                    <span className="text-[10px] text-gray-400 font-bold uppercase tracking-widest mb-1">Pattern</span>
-                    <span className="text-lg font-black text-gray-800 break-words line-clamp-1" title={pattern}>{pattern}</span>
+                <div className="bg-white dark:bg-slate-900 p-4 rounded-xl shadow-sm border border-gray-100 dark:border-slate-700 flex flex-col items-center sm:items-start text-center sm:text-left transition-all hover:shadow-md dark:hover:bg-slate-800/50">
+                    <span className="text-[10px] text-gray-400 dark:text-slate-500 font-bold uppercase tracking-widest mb-1">Pattern</span>
+                    <span className="text-lg font-black text-gray-800 dark:text-slate-200 break-words line-clamp-1" title={pattern}>{pattern}</span>
                 </div>
             </div>
 
             {/* Asymmetry Alert (Novelty #2) */}
             {asymmetryDetected && (
-                <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 flex items-start space-x-3">
-                    <AlertTriangle className="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5" />
+                <div className="bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-900/30 rounded-xl p-4 flex items-start space-x-3">
+                    <AlertTriangle className="w-5 h-5 text-amber-600 dark:text-amber-400 flex-shrink-0 mt-0.5" />
                     <div>
-                        <h3 className="font-bold text-amber-900 text-sm">Asymmetrical Hearing Detected</h3>
-                        <p className="text-xs text-amber-800 mt-1">Significant difference between ears ({'>'}15dB). ⚠ ENT Referral Recommended to rule out retrocochlear pathology.</p>
+                        <h3 className="font-bold text-amber-900 dark:text-amber-200 text-sm">Asymmetrical Hearing Detected</h3>
+                        <p className="text-xs text-amber-800 dark:text-amber-400 mt-1">Significant difference between ears ({'>'}15dB). ⚠ ENT Referral Recommended to rule out retrocochlear pathology.</p>
                     </div>
                 </div>
             )}
 
             {/* Reliability Score Banner */}
             {reliabilityScore !== null && (
-                <div className={`rounded-xl p-4 flex items-center justify-between ${reliabilityScore >= 85 ? 'bg-teal-50 border border-teal-100' :
-                    reliabilityScore >= 70 ? 'bg-amber-50 border border-amber-100' :
-                        'bg-red-50 border border-red-100'
+                <div className={`rounded-xl p-4 flex items-center justify-between ${reliabilityScore >= 85 ? 'bg-teal-50 dark:bg-teal-900/20 border border-teal-100 dark:border-teal-900/30' :
+                    reliabilityScore >= 70 ? 'bg-amber-50 dark:bg-amber-900/20 border border-amber-100 dark:border-amber-900/30' :
+                        'bg-red-50 dark:bg-red-900/20 border border-red-100 dark:border-red-900/30'
                     }`}>
                     <div className="flex items-center space-x-3">
-                        {reliabilityScore >= 85 ? <ShieldCheck className="w-6 h-6 text-teal-600" /> : <AlertTriangle className="w-6 h-6 text-amber-600" />}
+                        {reliabilityScore >= 85 ? <ShieldCheck className="w-6 h-6 text-teal-600 dark:text-teal-400" /> : <AlertTriangle className="w-6 h-6 text-amber-600 dark:text-amber-400" />}
                         <div>
-                            <h3 className={`font-bold ${reliabilityScore >= 85 ? 'text-teal-900' : 'text-amber-900'}`}>Test Reliability: {reliabilityScore}% ({
+                            <h3 className={`font-bold ${reliabilityScore >= 85 ? 'text-teal-900 dark:text-teal-200' : 'text-amber-900 dark:text-amber-200'}`}>Test Reliability: {reliabilityScore}% ({
                                 reliabilityScore >= 90 ? 'Excellent' :
                                     reliabilityScore >= 80 ? 'Good' :
                                         reliabilityScore >= 70 ? 'Fair' : 'Poor'
                             })</h3>
-                            <p className={`text-xs ${reliabilityScore >= 85 ? 'text-teal-700' : 'text-amber-700'}`}>
+                            <p className={`text-xs ${reliabilityScore >= 85 ? 'text-teal-700 dark:text-teal-400' : 'text-amber-700 dark:text-amber-400'}`}>
                                 Based on response consistency and false positive checks.
                             </p>
                         </div>
@@ -452,13 +452,13 @@ export default function Results() {
             )}
 
             {/* Automated Clinical Interpretation (Novelty #6 - Most Impressive) */}
-            <div className="bg-gradient-to-r from-indigo-50 to-purple-50 p-6 rounded-2xl border border-indigo-100 shadow-sm relative overflow-hidden">
+            <div className="bg-gradient-to-r from-indigo-50 to-purple-50 dark:from-slate-900 dark:to-slate-950 p-6 rounded-2xl border border-indigo-100 dark:border-slate-700 shadow-sm relative overflow-hidden">
                 <div className="relative z-10">
                     <div className="flex items-center space-x-2 mb-3">
                         {/* <Brain className="w-5 h-5 text-indigo-600" />*/}
-                        <h4 className="font-bold text-indigo-900">Automated Clinical Interpretation</h4>
+                        <h4 className="font-bold text-indigo-900 dark:text-indigo-400">Automated Clinical Interpretation</h4>
                     </div>
-                    <p className="text-indigo-800 leading-relaxed font-medium">
+                    <p className="text-indigo-800 dark:text-indigo-200 leading-relaxed font-medium">
                         "{clinicalSummary}"
                     </p>
                     {/*<div className="flex items-center space-x-2 mt-4 text-xs text-indigo-500 lowercase">
@@ -473,18 +473,18 @@ export default function Results() {
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
                 {/* Main Chart */}
                 {/* Main Chart - Take full width and centered on mobile */}
-                <div className="lg:col-span-2 bg-white p-4 sm:p-6 rounded-2xl shadow-sm border border-gray-100 order-1">
+                <div className="lg:col-span-2 bg-white dark:bg-slate-900 p-4 sm:p-6 rounded-2xl shadow-sm border border-gray-100 dark:border-slate-700 order-1">
                     <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 gap-6">
                         <div className="flex items-center space-x-2">
-                            <div className="p-2 bg-blue-50 rounded-lg">
-                                <Activity size={18} className="text-blue-600" />
+                            <div className="p-2 bg-blue-50 dark:bg-blue-900/30 rounded-lg">
+                                <Activity size={18} className="text-blue-600 dark:text-blue-400" />
                             </div>
-                            <h3 className="font-bold text-gray-900">Pure Tone Audiometry</h3>
-                            <span className="text-[10px] text-gray-400 font-mono hidden sm:inline">(LOG SCALE)</span>
+                            <h3 className="font-bold text-gray-900 dark:text-white">Pure Tone Audiometry</h3>
+                            <span className="text-[10px] text-gray-400 dark:text-slate-500 font-mono hidden sm:inline">(LOG SCALE)</span>
                         </div>
-                        <div className="flex items-center gap-6 text-xs font-bold">
-                            <div className="flex items-center"><span className="w-3 h-3 bg-red-500 rounded-full mr-2 shadow-sm shadow-red-100"></span>Right <span className="hidden sm:inline ml-1">(O)</span></div>
-                            <div className="flex items-center"><span className="w-3 h-3 bg-blue-500 rounded-full mr-2 shadow-sm shadow-blue-100"></span>Left <span className="hidden sm:inline ml-1">(X)</span></div>
+                        <div className="flex items-center gap-6 text-xs font-bold text-gray-900 dark:text-white">
+                            <div className="flex items-center"><span className="w-3 h-3 bg-red-500 rounded-full mr-2 shadow-sm shadow-red-100 dark:shadow-none"></span>Right <span className="hidden sm:inline ml-1">(O)</span></div>
+                            <div className="flex items-center"><span className="w-3 h-3 bg-blue-500 rounded-full mr-2 shadow-sm shadow-blue-100 dark:shadow-none"></span>Left <span className="hidden sm:inline ml-1">(X)</span></div>
                         </div>
                     </div>
 
@@ -545,11 +545,11 @@ export default function Results() {
                 {/* Sidebar Info - Stacked below chart on mobile */}
                 <div className="space-y-6 order-2">
                     {/* Clinical Report Section */}
-                    <div className="bg-purple-50 p-4 sm:p-6 rounded-2xl shadow-sm border border-purple-100">
+                    <div className="bg-purple-50 dark:bg-slate-900 p-4 sm:p-6 rounded-2xl shadow-sm border border-purple-100 dark:border-purple-900/30">
                         <div className="flex items-center justify-between mb-4">
-                            <h4 className="font-bold text-purple-900">Clinical Report</h4>
+                            <h4 className="font-bold text-purple-900 dark:text-purple-400">Clinical Report</h4>
                             {screening.clinical_report && (
-                                <span className="bg-purple-200 text-purple-800 text-xs px-2 py-1 rounded-md font-medium">
+                                <span className="bg-purple-200 dark:bg-purple-900/40 text-purple-800 dark:text-purple-300 text-xs px-2 py-1 rounded-md font-medium">
                                     Submitted
                                 </span>
                             )}
@@ -563,30 +563,30 @@ export default function Results() {
                     </div>
 
                     {/* Recommendations */}
-                    <div className="bg-blue-50 p-4 sm:p-6 rounded-2xl shadow-sm border border-blue-100">
-                        <h4 className="font-bold text-blue-900 mb-2">Clinical Recommendations</h4>
-                        <p className="text-xs text-blue-600 mb-4 uppercase tracking-wider font-semibold">Based on <span style={{ color: 'red', fontWeight: 'bold' }}>(WHO 2026)</span> Grades</p>
+                    <div className="bg-blue-50 dark:bg-slate-900 p-4 sm:p-6 rounded-2xl shadow-sm border border-blue-100 dark:border-blue-900/30">
+                        <h4 className="font-bold text-blue-900 dark:text-blue-400 mb-2">Clinical Recommendations</h4>
+                        <p className="text-xs text-blue-600 dark:text-blue-500 mb-4 uppercase tracking-wider font-semibold">Based on <span style={{ color: 'red', fontWeight: 'bold' }}>(WHO 2026)</span> Grades</p>
 
                         <ul className="space-y-3">
                             {recommendations.map((rec, i) => (
-                                <li key={i} className="flex items-start text-blue-800 text-sm">
-                                    <span className="mr-2 text-xl leading-none">&bull;</span>
+                                <li key={i} className="flex items-start text-blue-800 dark:text-blue-300 text-sm">
+                                    <span className="mr-2 text-xl leading-none dark:text-blue-500">&bull;</span>
                                     <span>{rec}</span>
                                 </li>
                             ))}
                         </ul>
 
-                        <div className="mt-6 pt-4 border-t border-blue-200">
-                            <p className="text-xs text-blue-500 italic">
+                        <div className="mt-6 pt-4 border-t border-blue-200 dark:border-blue-900/40">
+                            <p className="text-xs text-blue-500 dark:text-blue-600 italic">
                                 "Early amplification may improve speech understanding."
                             </p>
                         </div>
                     </div>
 
                     {/* Screening Notes (Technician/Teacher notes) */}
-                    <div className="bg-white p-4 sm:p-6 rounded-2xl shadow-sm border border-gray-100">
-                        <h4 className="font-bold text-gray-900 mb-2">Screening Notes</h4>
-                        <p className="text-sm text-gray-600 italic">
+                    <div className="bg-white dark:bg-slate-900 p-4 sm:p-6 rounded-2xl shadow-sm border border-gray-100 dark:border-slate-700">
+                        <h4 className="font-bold text-gray-900 dark:text-white mb-2">Screening Notes</h4>
+                        <p className="text-sm text-gray-600 dark:text-slate-400 italic">
                             {screening.notes || "No notes added during screening."}
                         </p>
                     </div>

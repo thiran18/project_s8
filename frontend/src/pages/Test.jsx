@@ -419,45 +419,45 @@ export default function Test() {
     if (!hasStarted) {
         return (
             <div className="max-w-xl mx-auto py-8 text-center space-y-8">
-                <div className="bg-white rounded-3xl shadow-xl overflow-hidden">
-                    <div className="bg-[#CFD8DC] p-8 text-center border-b border-[#B0BEC5]">
-                        <h2 className="text-2xl font-light text-[#607D8B] tracking-tight">Clinical Audiometry</h2>
-                        <p className="text-[#78909C] mt-2 font-light">Standardized automated testing protocol</p>
+                <div className="bg-white dark:bg-slate-800 rounded-3xl shadow-xl overflow-hidden border border-transparent dark:border-slate-700">
+                    <div className="bg-[#CFD8DC] dark:bg-slate-900 p-8 text-center border-b border-[#B0BEC5] dark:border-slate-700">
+                        <h2 className="text-2xl font-light text-[#607D8B] dark:text-slate-200 tracking-tight">Clinical Audiometry</h2>
+                        <p className="text-[#78909C] dark:text-slate-400 mt-2 font-light">Standardized automated testing protocol</p>
                     </div>
                     <div className="p-8 space-y-6">
                         <div className="space-y-4 text-left">
-                            <label className="block text-sm font-medium text-slate-700 ml-1">Patient Identification</label>
+                            <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 ml-1">Patient Identification</label>
                             <input
                                 type="text"
                                 placeholder="Full Name / ID"
                                 value={patientName}
                                 onChange={(e) => setPatientName(e.target.value)}
-                                className="w-full px-4 py-3 border border-slate-200 rounded-xl focus:ring-2 focus:ring-blue-500 outline-none transition-all font-medium"
+                                className="w-full px-4 py-3 border border-slate-200 dark:border-slate-700 rounded-xl bg-white dark:bg-slate-900 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 outline-none transition-all font-medium placeholder-slate-400 dark:placeholder-slate-600"
                             />
                         </div>
 
-                        <div className="bg-amber-50 p-4 rounded-xl border border-amber-100 flex items-start space-x-3 text-left">
-                            <Info className="w-5 h-5 text-amber-600 flex-shrink-0 mt-0.5" />
+                        <div className="bg-amber-50 dark:bg-amber-900/20 p-4 rounded-xl border border-amber-100 dark:border-amber-900/30 flex items-start space-x-3 text-left">
+                            <Info className="w-5 h-5 text-amber-600 dark:text-amber-400 flex-shrink-0 mt-0.5" />
                             <div>
-                                <h4 className="text-amber-800 font-medium text-sm">Environment Check Required</h4>
-                                <p className="text-amber-700 text-xs mt-1">This test monitors background noise to ensure accuracy. Please allow microphone access when prompted.</p>
+                                <h4 className="text-amber-800 dark:text-amber-300 font-medium text-sm">Environment Check Required</h4>
+                                <p className="text-amber-700 dark:text-amber-400 text-xs mt-1">This test monitors background noise to ensure accuracy. Please allow microphone access when prompted.</p>
                             </div>
                         </div>
 
                         {/* Mode Toggle */}
-                        <div className="bg-white border border-gray-200 p-4 rounded-xl flex items-center justify-between">
+                        <div className="bg-white dark:bg-slate-900 border border-gray-200 dark:border-slate-700 p-4 rounded-xl flex items-center justify-between">
                             <div className="flex items-center space-x-3">
-                                <div className={`p-2 rounded-lg ${isClinicalMode ? 'bg-blue-100 text-blue-600' : 'bg-green-100 text-green-600'}`}>
+                                <div className={`p-2 rounded-lg ${isClinicalMode ? 'bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400' : 'bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400'}`}>
                                     {isClinicalMode ? <Activity className="w-5 h-5" /> : <CheckCircle2 className="w-5 h-5" />}
                                 </div>
                                 <div className="text-left">
-                                    <h4 className="font-sm font-bold text-gray-800">{isClinicalMode ? 'Clinical Mode' : 'Screening Mode'}</h4>
-                                    <p className="text-xs text-gray-500">{isClinicalMode ? 'Full Frequencies (250-8000Hz)' : 'Standard Screening (500-4000Hz)'}</p>
+                                    <h4 className="font-sm font-bold text-gray-800 dark:text-white">{isClinicalMode ? 'Clinical Mode' : 'Screening Mode'}</h4>
+                                    <p className="text-xs text-gray-500 dark:text-slate-400">{isClinicalMode ? 'Full Frequencies (250-8000Hz)' : 'Standard Screening (500-4000Hz)'}</p>
                                 </div>
                             </div>
                             <button
                                 onClick={() => setIsClinicalMode(!isClinicalMode)}
-                                className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${isClinicalMode ? 'bg-blue-600' : 'bg-gray-200'}`}
+                                className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${isClinicalMode ? 'bg-blue-600' : 'bg-gray-200 dark:bg-slate-700'}`}
                             >
                                 <span className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${isClinicalMode ? 'translate-x-6' : 'translate-x-1'}`} />
                             </button>
@@ -481,7 +481,7 @@ export default function Test() {
                         */}
                         <button
                             onClick={startTesting}
-                            className="w-full bg-[#607D8B] hover:bg-[#546E7A] text-white font-medium py-5 rounded-xl shadow-lg active:scale-95 flex items-center justify-center space-x-3 transition-all tracking-wide"
+                            className="w-full bg-[#607D8B] dark:bg-slate-700 hover:bg-[#546E7A] dark:hover:bg-slate-600 text-white font-medium py-5 rounded-xl shadow-lg active:scale-95 flex items-center justify-center space-x-3 transition-all tracking-wide"
                         >
                             <span>Begin Assessment</span>
                             <ArrowRight className="w-4 h-4" />
@@ -496,19 +496,19 @@ export default function Test() {
     // Noise Warning Overlay
     if (isNoisy) {
         return (
-            <div className="fixed inset-0 z-50 bg-[#607D8B]/90 backdrop-blur-md flex items-center justify-center p-4">
-                <div className="bg-white rounded-3xl p-8 max-w-sm text-center shadow-2xl animate-bounce-slow">
-                    <div className="w-20 h-20 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                        <VolumeX className="w-10 h-10 text-red-500" />
+            <div className="fixed inset-0 z-50 bg-[#607D8B]/90 dark:bg-slate-950/90 backdrop-blur-md flex items-center justify-center p-4">
+                <div className="bg-white dark:bg-slate-800 rounded-3xl p-8 max-w-sm text-center shadow-2xl animate-bounce-slow border border-transparent dark:border-slate-700">
+                    <div className="w-20 h-20 bg-red-100 dark:bg-red-900/30 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <VolumeX className="w-10 h-10 text-red-500 dark:text-red-400" />
                     </div>
-                    <h2 className="text-2xl font-bold text-gray-800 mb-2">Too Noisy!</h2>
-                    <p className="text-gray-500 mb-6">
+                    <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-2">Too Noisy!</h2>
+                    <p className="text-gray-500 dark:text-slate-400 mb-6">
                         Background noise levels are too high for accurate screening. Please move to a quieter area or wait for silence.
                     </p>
-                    <div className="w-full bg-gray-200 rounded-full h-2 mb-4 overflow-hidden">
+                    <div className="w-full bg-gray-200 dark:bg-slate-700 rounded-full h-2 mb-4 overflow-hidden">
                         <div className="bg-red-500 h-full transition-all duration-200" style={{ width: `${Math.min(100, noiseLevel * 2)}%` }}></div>
                     </div>
-                    <p className="text-xs text-gray-400">Test will auto-resume when quiet.</p>
+                    <p className="text-xs text-gray-400 dark:text-slate-500">Test will auto-resume when quiet.</p>
                 </div>
             </div>
         )
@@ -519,29 +519,29 @@ export default function Test() {
         const nextPhase = TEST_STEPS[currentStepIndex + 1];
         return (
             <div className="max-w-xl mx-auto py-12">
-                <div className="bg-white rounded-[2.5rem] shadow-2xl p-10 text-center space-y-8 border border-slate-100">
-                    <div className="w-16 h-16 bg-[#CFD8DC] rounded-full flex items-center justify-center mx-auto">
-                        <CheckCircle2 className="w-8 h-8 text-[#607D8B]" />
+                <div className="bg-white dark:bg-slate-800 rounded-[2.5rem] shadow-2xl p-10 text-center space-y-8 border border-slate-100 dark:border-slate-700">
+                    <div className="w-16 h-16 bg-[#CFD8DC] dark:bg-slate-900 rounded-full flex items-center justify-center mx-auto">
+                        <CheckCircle2 className="w-8 h-8 text-[#607D8B] dark:text-slate-400" />
                     </div>
                     <div className="space-y-2">
-                        <h2 className="text-xl font-medium text-[#607D8B]">Phase Complete</h2>
-                        <p className="text-[#90A4AE] font-light">{currentStep.ear} ear results recorded</p>
+                        <h2 className="text-xl font-medium text-[#607D8B] dark:text-slate-200">Phase Complete</h2>
+                        <p className="text-[#90A4AE] dark:text-slate-400 font-light">{currentStep.ear} ear results recorded</p>
                     </div>
 
-                    <div className="p-6 bg-[#CFD8DC]/20 rounded-2xl border border-[#CFD8DC] text-left">
-                        <p className="text-xs font-bold text-[#90A4AE] uppercase tracking-widest mb-3">Up Next</p>
+                    <div className="p-6 bg-[#CFD8DC]/20 dark:bg-slate-900/50 rounded-2xl border border-[#CFD8DC] dark:border-slate-700 text-left">
+                        <p className="text-xs font-bold text-[#90A4AE] dark:text-slate-500 uppercase tracking-widest mb-3">Up Next</p>
                         <div className="flex items-center justify-between">
                             <div>
-                                <p className="text-lg font-medium text-[#607D8B] capitalize">{nextPhase.ear} Ear</p>
-                                <p className="text-sm text-[#78909C]">{nextPhase.masking} sequence</p>
+                                <p className="text-lg font-medium text-[#607D8B] dark:text-slate-200 capitalize">{nextPhase.ear} Ear</p>
+                                <p className="text-sm text-[#78909C] dark:text-slate-400">{nextPhase.masking} sequence</p>
                             </div>
-                            <Activity className="w-5 h-5 text-[#B0BEC5]" />
+                            <Activity className="w-5 h-5 text-[#B0BEC5] dark:text-slate-600" />
                         </div>
                     </div>
 
                     <button
                         onClick={nextPart}
-                        className="w-full bg-[#607D8B] text-white font-medium py-4 rounded-xl shadow-lg hover:bg-[#546E7A] transition-all flex items-center justify-center space-x-2"
+                        className="w-full bg-[#607D8B] dark:bg-slate-700 text-white font-medium py-4 rounded-xl shadow-lg hover:bg-[#546E7A] dark:hover:bg-slate-600 transition-all flex items-center justify-center space-x-2"
                     >
                         <span>Start Next Phase</span>
                         <ChevronRight className="w-5 h-5" />
@@ -566,32 +566,32 @@ export default function Test() {
                 {TEST_STEPS.map((step, idx) => (
                     <div
                         key={idx}
-                        className={`h-1 flex-1 rounded-full transition-all duration-500 ${idx === currentStepIndex ? 'bg-[#607D8B]' : idx < currentStepIndex ? 'bg-[#90A4AE]' : 'bg-[#CFD8DC]'}`}
+                        className={`h-1 flex-1 rounded-full transition-all duration-500 ${idx === currentStepIndex ? 'bg-[#607D8B] dark:bg-slate-400' : idx < currentStepIndex ? 'bg-[#90A4AE] dark:bg-slate-600' : 'bg-[#CFD8DC] dark:bg-slate-800'}`}
                     />
                 ))}
             </div>
 
-            <div className="bg-white rounded-3xl shadow-xl shadow-[#CFD8DC]/50 p-8 sm:p-12 text-center relative border border-[#CFD8DC]">
+            <div className="bg-white dark:bg-slate-800 rounded-3xl shadow-xl shadow-[#CFD8DC]/50 dark:shadow-none p-8 sm:p-12 text-center relative border border-[#CFD8DC] dark:border-slate-700">
 
                 {/* Noise Indicator (Small) */}
-                <div className="absolute top-4 left-4 flex items-center space-x-2 bg-gray-50 p-2 rounded-full border border-gray-100" title="Ambient Noise Level">
-                    <div className={`p-1.5 rounded-full ${noiseLevel > 40 ? 'bg-red-100 text-red-600' : 'bg-green-100 text-green-600'} transition-colors`}>
+                <div className="absolute top-4 left-4 flex items-center space-x-2 bg-gray-50 dark:bg-slate-900 p-2 rounded-full border border-gray-100 dark:border-slate-700" title="Ambient Noise Level">
+                    <div className={`p-1.5 rounded-full ${noiseLevel > 40 ? 'bg-red-100 dark:bg-red-900/30 text-red-600 dark:text-red-400' : 'bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400'} transition-colors`}>
                         {noiseLevel > 40 ? <MicOff className="w-3 h-3" /> : <Mic className="w-3 h-3" />}
                     </div>
-                    <div className="text-xs font-medium text-gray-500 pr-2">
-                        <span className="font-bold text-gray-700">{noiseLevel} dB</span>
+                    <div className="text-xs font-medium text-gray-500 dark:text-slate-400 pr-2">
+                        <span className="font-bold text-gray-700 dark:text-slate-200">{noiseLevel} dB</span>
                         <span className="hidden sm:inline"> ({noiseLevel > 40 ? 'Noisy' : 'Acceptable'})</span>
                     </div>
                 </div>
 
                 <div className="flex justify-between items-center mb-10">
-                    <button onClick={onCancel} className="p-2 text-[#90A4AE] hover:text-[#607D8B] transition-colors"><X className="w-6 h-6" /></button>
+                    <button onClick={onCancel} className="p-2 text-[#90A4AE] hover:text-[#607D8B] dark:hover:text-slate-300 transition-colors"><X className="w-6 h-6" /></button>
 
                     <div className="flex flex-col items-center">
-                        <span className="text-[10px] font-bold text-[#B0BEC5] uppercase tracking-[0.2em] mb-2">Testing Phase</span>
+                        <span className="text-[10px] font-bold text-[#B0BEC5] dark:text-slate-500 uppercase tracking-[0.2em] mb-2">Testing Phase</span>
 
                         {/* Ear Selection Buttons */}
-                        <div className="flex items-center space-x-1 mb-2 bg-gray-100 p-1 rounded-full">
+                        <div className="flex items-center space-x-1 mb-2 bg-gray-100 dark:bg-slate-900 p-1 rounded-full border border-transparent dark:border-slate-700">
                             <button
                                 onClick={() => {
                                     if (currentStep.ear !== 'right') {
@@ -602,7 +602,7 @@ export default function Test() {
                                 }}
                                 className={`text-xs font-medium px-4 py-1.5 rounded-full uppercase tracking-wide transition-all ${currentStep.ear === 'right'
                                     ? 'bg-red-500 text-white shadow-md'
-                                    : 'bg-transparent text-gray-500 hover:text-gray-700'
+                                    : 'bg-transparent text-gray-500 dark:text-slate-500 hover:text-gray-700 dark:hover:text-slate-300'
                                     }`}
                             >
                                 Right Ear
@@ -617,7 +617,7 @@ export default function Test() {
                                 }}
                                 className={`text-xs font-medium px-4 py-1.5 rounded-full uppercase tracking-wide transition-all ${currentStep.ear === 'left'
                                     ? 'bg-blue-500 text-white shadow-md'
-                                    : 'bg-transparent text-gray-500 hover:text-gray-700'
+                                    : 'bg-transparent text-gray-500 dark:text-slate-500 hover:text-gray-700 dark:hover:text-slate-300'
                                     }`}
                             >
                                 Left Ear
@@ -625,7 +625,7 @@ export default function Test() {
                         </div>
 
                         {/* Masking Mode Buttons */}
-                        <div className="flex items-center space-x-1 bg-gray-100 p-1 rounded-full">
+                        <div className="flex items-center space-x-1 bg-gray-100 dark:bg-slate-900 p-1 rounded-full border border-transparent dark:border-slate-700">
                             <button
                                 onClick={() => {
                                     if (currentStep.masking !== 'unmasked') {
@@ -635,8 +635,8 @@ export default function Test() {
                                     }
                                 }}
                                 className={`text-xs font-medium px-4 py-1.5 rounded-full uppercase tracking-wide transition-all ${currentStep.masking === 'unmasked'
-                                    ? 'bg-[#607D8B] text-white shadow-md'
-                                    : 'bg-transparent text-gray-500 hover:text-gray-700'
+                                    ? 'bg-[#607D8B] dark:bg-slate-600 text-white shadow-md'
+                                    : 'bg-transparent text-gray-500 dark:text-slate-500 hover:text-gray-700 dark:hover:text-slate-300'
                                     }`}
                             >
                                 Unmasked
@@ -650,28 +650,28 @@ export default function Test() {
                                     }
                                 }}
                                 className={`text-xs font-medium px-4 py-1.5 rounded-full uppercase tracking-wide transition-all ${currentStep.masking === 'masked'
-                                    ? 'bg-[#607D8B] text-white shadow-md'
-                                    : 'bg-transparent text-gray-500 hover:text-gray-700'
+                                    ? 'bg-[#607D8B] dark:bg-slate-600 text-white shadow-md'
+                                    : 'bg-transparent text-gray-500 dark:text-slate-500 hover:text-gray-700 dark:hover:text-slate-300'
                                     }`}
                             >
                                 Masked
                             </button>
                         </div>
                     </div>
-                    <button onClick={handleFinalize} className="bg-[#CFD8DC]/30 text-[#90A4AE] px-4 py-2 rounded-xl text-xs font-bold hover:bg-[#CFD8DC]/50 transition-colors">
+                    <button onClick={handleFinalize} className="bg-[#CFD8DC]/30 dark:bg-slate-900 text-[#90A4AE] dark:text-slate-500 px-4 py-2 rounded-xl text-xs font-bold hover:bg-[#CFD8DC]/50 dark:hover:bg-slate-700 transition-colors border border-transparent dark:border-slate-700">
                         Finish
                     </button>
                 </div>
 
                 <div className="mb-10">
-                    <div className="text-7xl font-light text-[#607D8B] tracking-tighter mb-8">
-                        {frequencies[currentFreqIndex]}<span className="text-2xl font-light text-[#B0BEC5] ml-1">Hz</span>
+                    <div className="text-7xl font-light text-[#607D8B] dark:text-slate-200 tracking-tighter mb-8">
+                        {frequencies[currentFreqIndex]}<span className="text-2xl font-light text-[#B0BEC5] dark:text-slate-500 ml-1">Hz</span>
                     </div>
                     <div className="flex justify-center space-x-1.5">
                         {frequencies.map((f, i) => (
                             <div
                                 key={f}
-                                className={`h-1.5 w-8 rounded-full transition-all duration-300 ${i === currentFreqIndex ? 'bg-[#607D8B] w-12' : i < currentFreqIndex ? 'bg-[#90A4AE]' : 'bg-[#CFD8DC]'}`}
+                                className={`h-1.5 w-8 rounded-full transition-all duration-300 ${i === currentFreqIndex ? 'bg-[#607D8B] dark:bg-slate-400 w-12' : i < currentFreqIndex ? 'bg-[#90A4AE] dark:bg-slate-600' : 'bg-[#CFD8DC] dark:bg-slate-800'}`}
                             />
                         ))}
                     </div>
@@ -684,16 +684,16 @@ export default function Test() {
                         onMouseLeave={stopTone}
                         onTouchStart={() => playTone(frequencies[currentFreqIndex], currentDb)}
                         onTouchEnd={stopTone}
-                        className={`w-48 h-48 rounded-full border border-[#CFD8DC] flex flex-col items-center justify-center transition-all duration-300 outline-none select-none active:scale-95 ${isPlaying ? 'bg-[#607D8B] shadow-2xl shadow-[#B0BEC5] scale-105' : 'bg-white hover:border-[#B0BEC5] shadow-lg shadow-[#CFD8DC]/50'}`}
+                        className={`w-48 h-48 rounded-full border border-[#CFD8DC] dark:border-slate-700 flex flex-col items-center justify-center transition-all duration-300 outline-none select-none active:scale-95 ${isPlaying ? 'bg-[#607D8B] dark:bg-slate-700 shadow-2xl shadow-[#B0BEC5] dark:shadow-slate-900 scale-105' : 'bg-white dark:bg-slate-900 hover:border-[#B0BEC5] dark:hover:border-slate-600 shadow-lg shadow-[#CFD8DC]/50 dark:shadow-none'}`}
                     >
                         {isPlaying ? (
                             <Volume2 className="w-16 h-16 text-white mb-2 animate-pulse" />
                         ) : (
                             <div className='flex flex-col items-center'>
-                                <div className="w-12 h-12 rounded-full bg-[#CFD8DC]/30 flex items-center justify-center mb-3">
-                                    <Volume2 className="w-6 h-6 text-[#607D8B]" />
+                                <div className="w-12 h-12 rounded-full bg-[#CFD8DC]/30 dark:bg-slate-800 flex items-center justify-center mb-3">
+                                    <Volume2 className="w-6 h-6 text-[#607D8B] dark:text-slate-400" />
                                 </div>
-                                <span className="text-xs font-medium text-[#90A4AE] uppercase tracking-widest">Hold to Play</span>
+                                <span className="text-xs font-medium text-[#90A4AE] dark:text-slate-500 uppercase tracking-widest">Hold to Play</span>
                             </div>
                         )}
                     </button>
@@ -705,18 +705,18 @@ export default function Test() {
                     <button
                         onClick={handleNotHeard}
                         className={`group p-5 border-2 rounded-2xl transition-all flex flex-col items-center justify-center min-h-[120px] active:scale-95 ${lastClickedButton === 'notHeard'
-                            ? 'bg-blue-50 border-blue-400 scale-105'
-                            : 'border-[#CFD8DC] hover:bg-[#CFD8DC]/30 hover:border-[#607D8B]'
+                            ? 'bg-blue-50 dark:bg-blue-900/20 border-blue-400 dark:border-blue-500 scale-105 shadow-lg dark:shadow-none'
+                            : 'border-[#CFD8DC] dark:border-slate-700 bg-white dark:bg-slate-900 hover:bg-[#CFD8DC]/30 dark:hover:bg-slate-800 hover:border-[#607D8B] dark:hover:border-slate-500'
                             }`}
                     >
-                        <span className="text-sm font-medium text-[#607D8B] mb-2">Not Heard</span>
-                        <div className="text-xs text-[#90A4AE] space-y-1">
+                        <span className="text-sm font-medium text-[#607D8B] dark:text-slate-300 mb-2">Not Heard</span>
+                        <div className="text-xs text-[#90A4AE] dark:text-slate-500 space-y-1">
                             <div className="font-mono">
-                                <span className="font-bold text-[#607D8B]">{currentDb}dB</span>
+                                <span className="font-bold text-[#607D8B] dark:text-slate-300">{currentDb}dB</span>
                                 {currentDb < MAX_DB && (
                                     <>
-                                        <span className="mx-1">→</span>
-                                        <span className="font-bold text-[#78909C]">{currentDb + DB_STEP}dB</span>
+                                        <span className="mx-1 dark:text-slate-600">→</span>
+                                        <span className="font-bold text-[#78909C] dark:text-slate-400">{currentDb + DB_STEP}dB</span>
                                     </>
                                 )}
                             </div>
@@ -727,20 +727,20 @@ export default function Test() {
                     </button>
                     <button
                         onClick={handleHeard}
-                        className={`group p-5 rounded-2xl transition-all flex flex-col items-center justify-center min-h-[120px] shadow-lg active:scale-95 ${lastClickedButton === 'heard'
-                            ? 'bg-[#78909C] scale-105 shadow-[#B0BEC5]'
-                            : 'bg-[#607D8B] hover:bg-[#546E7A] shadow-[#CFD8DC]'
+                        className={`group p-5 rounded-2xl transition-all flex flex-col items-center justify-center min-h-[120px] shadow-lg dark:shadow-none active:scale-95 ${lastClickedButton === 'heard'
+                            ? 'bg-[#78909C] dark:bg-slate-600 scale-105 shadow-[#B0BEC5]'
+                            : 'bg-[#607D8B] dark:bg-slate-700 hover:bg-[#546E7A] dark:hover:bg-slate-600 shadow-[#CFD8DC]'
                             }`}
                     >
                         <Zap className={`w-6 h-6 mb-2 transition-colors ${lastClickedButton === 'heard' ? 'text-yellow-300' : 'text-white'}`} />
                         <span className="text-sm font-medium text-white">I Heard It</span>
-                        <span className="text-xs text-[#B0BEC5] mt-1">Record at {currentDb}dB</span>
+                        <span className="text-xs text-[#B0BEC5] dark:text-slate-400 mt-1">Record at {currentDb}dB</span>
                     </button>
                 </div>
 
-                <div className="mt-10 flex items-center justify-center space-x-4 text-[10px] font-bold text-[#B0BEC5] uppercase tracking-widest">
+                <div className="mt-10 flex items-center justify-center space-x-4 text-[10px] font-bold text-[#B0BEC5] dark:text-slate-500 uppercase tracking-widest">
                     <span>{results.length} PLOTS RECORDED</span>
-                    <span className="w-1 h-1 bg-[#CFD8DC] rounded-full" />
+                    <span className="w-1 h-1 bg-[#CFD8DC] dark:bg-slate-700 rounded-full" />
                     <span>{currentStepIndex + 1} OF 4 PHASES</span>
                 </div>
             </div>

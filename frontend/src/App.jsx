@@ -2,15 +2,16 @@ import React from 'react'
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
 import Home from './pages/Home'
 
-import Auth from './pages/Auth'
 import Dashboard from './pages/Dashboard'
 import TeacherDashboard from './pages/TeacherDashboard'
 import Results from './pages/Results'
 import Patients from './pages/Patients'
 import SectionDetail from './pages/SectionDetail'
 
-// Placeholder for Test (Coming in next step)
 import Test from './pages/Test'
+import Settings from './pages/Settings'
+import Login from './pages/Login'
+import Register from './pages/Register'
 
 import { AuthProvider } from './context/AuthContext'
 import { useAuth } from './context/useAuth'
@@ -51,8 +52,8 @@ function App() {
       <AuthProvider>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Auth />} />
-          <Route path="/register" element={<Auth />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
 
           {/* Protected Routes with Layout */}
           <Route element={<ProtectedRoute />}>
@@ -63,6 +64,7 @@ function App() {
               <Route path="/patients" element={<Patients />} />
               <Route path="/results/:id" element={<Results />} />
               <Route path="/test" element={<Test />} />
+              <Route path="/settings" element={<Settings />} />
               <Route path="/home" element={<RoleBasedDashboardRedirect />} />
             </Route>
           </Route>

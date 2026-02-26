@@ -127,18 +127,18 @@ export default function Dashboard() {
         <div className="space-y-8">
             <div className="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-4">
                 <div className="w-full">
-                    <h1 className="text-2xl font-bold text-gray-900">Clinician Control Center</h1>
-                    <p className="text-gray-500 mt-1">Reviewing results across all associated schools</p>
+                    <h1 className="text-2xl font-bold text-gray-900 dark:text-white">Clinician Control Center</h1>
+                    <p className="text-gray-500 dark:text-slate-400 mt-1">Reviewing results across all associated schools</p>
                 </div>
 
                 <div className="flex flex-col sm:flex-row w-full lg:w-auto gap-4">
                     <div className="relative w-full lg:w-80">
                         <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                            <Search className="h-5 w-5 text-gray-400" />
+                            <Search className="h-5 w-5 text-gray-400 dark:text-slate-500" />
                         </div>
                         <input
                             type="text"
-                            className="block w-full pl-10 pr-3 py-2.5 border border-gray-300 rounded-xl leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-blue-500 focus:border-blue-500 text-sm transition-shadow"
+                            className="block w-full pl-10 pr-3 py-2.5 border border-gray-300 dark:border-slate-700 rounded-xl leading-5 bg-white dark:bg-slate-900 placeholder-gray-500 dark:placeholder-slate-500 text-gray-900 dark:text-white focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-blue-500 focus:border-blue-500 text-sm transition-shadow shadow-sm dark:shadow-none"
                             placeholder="Search schools or classes..."
                             value={searchTerm}
                             onChange={(e) => setSearchTerm(e.target.value)}
@@ -149,31 +149,31 @@ export default function Dashboard() {
 
             {/* Stats Grid - Stacked on mobile, 3 cols on md+ */}
             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-                <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex items-center space-x-4">
-                    <div className="p-4 rounded-xl bg-blue-100 text-blue-600">
+                <div className="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-sm dark:shadow-none border border-gray-100 dark:border-slate-700 flex items-center space-x-4">
+                    <div className="p-4 rounded-xl bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400">
                         <School className="w-6 h-6" />
                     </div>
                     <div>
-                        <p className="text-sm font-medium text-gray-500">Schools</p>
-                        <p className="text-2xl font-bold text-gray-900">{stats.totalSchools}</p>
+                        <p className="text-sm font-medium text-gray-500 dark:text-slate-400">Schools</p>
+                        <p className="text-2xl font-bold text-gray-900 dark:text-white">{stats.totalSchools}</p>
                     </div>
                 </div>
-                <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex items-center space-x-4">
-                    <div className="p-4 rounded-xl bg-purple-100 text-purple-600">
+                <div className="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-sm dark:shadow-none border border-gray-100 dark:border-slate-700 flex items-center space-x-4">
+                    <div className="p-4 rounded-xl bg-purple-100 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400">
                         <Users className="w-6 h-6" />
                     </div>
                     <div>
-                        <p className="text-sm font-medium text-gray-500">Total Classes</p>
-                        <p className="text-2xl font-bold text-gray-900">{stats.totalClasses}</p>
+                        <p className="text-sm font-medium text-gray-500 dark:text-slate-400">Total Classes</p>
+                        <p className="text-2xl font-bold text-gray-900 dark:text-white">{stats.totalClasses}</p>
                     </div>
                 </div>
-                <div className="bg-white p-6 rounded-2xl shadow-sm border border-gray-100 flex items-center space-x-4">
-                    <div className="p-4 rounded-xl bg-orange-100 text-orange-600">
+                <div className="bg-white dark:bg-slate-800 p-6 rounded-2xl shadow-sm dark:shadow-none border border-gray-100 dark:border-slate-700 flex items-center space-x-4">
+                    <div className="p-4 rounded-xl bg-orange-100 dark:bg-orange-900/30 text-orange-600 dark:text-orange-400">
                         <FileText className="w-6 h-6" />
                     </div>
                     <div>
-                        <p className="text-sm font-medium text-gray-500">Pending Reports</p>
-                        <p className="text-2xl font-bold text-gray-900">{stats.pendingReports}</p>
+                        <p className="text-sm font-medium text-gray-500 dark:text-slate-400">Pending Reports</p>
+                        <p className="text-2xl font-bold text-gray-900 dark:text-white">{stats.pendingReports}</p>
                     </div>
                 </div>
             </div>
@@ -184,19 +184,19 @@ export default function Dashboard() {
                     <div key={school.name} className="space-y-4">
                         <div className="flex items-center space-x-2">
                             <span className="w-1 h-6 bg-blue-600 rounded-full"></span>
-                            <h2 className="text-lg font-bold text-gray-800">{school.name}</h2>
+                            <h2 className="text-lg font-bold text-gray-800 dark:text-white">{school.name}</h2>
                         </div>
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                             {school.sections.map(section => (
-                                <div key={section.id} className="bg-white rounded-2xl p-5 border border-gray-100 shadow-sm hover:shadow-md transition-all">
+                                <div key={section.id} className="bg-white dark:bg-slate-800 rounded-2xl p-5 border border-gray-100 dark:border-slate-700 shadow-sm dark:shadow-none hover:shadow-md dark:hover:bg-slate-700/50 transition-all">
                                     <div className="flex justify-between items-start mb-4">
                                         <div>
-                                            <h3 className="font-bold text-gray-900 line-clamp-1">{section.name}</h3>
-                                            <p className="text-xs text-gray-500">{section.patients?.length || 0} Students</p>
+                                            <h3 className="font-bold text-gray-900 dark:text-white line-clamp-1">{section.name}</h3>
+                                            <p className="text-xs text-gray-500 dark:text-slate-400">{section.patients?.length || 0} Students</p>
                                         </div>
                                         <div className="flex flex-col items-end gap-2">
                                             {section.pendingCount > 0 && (
-                                                <span className="bg-orange-100 text-orange-700 text-[10px] font-bold px-2 py-0.5 rounded-full">
+                                                <span className="bg-orange-100 dark:bg-orange-900/20 text-orange-700 dark:text-orange-400 text-[10px] font-bold px-2 py-0.5 rounded-full">
                                                     {section.pendingCount} Pending
                                                 </span>
                                             )}
@@ -214,21 +214,21 @@ export default function Dashboard() {
 
                                             return (
                                                 <div key={stu.id} className="flex items-center justify-between text-xs">
-                                                    <span className="text-gray-600 truncate mr-2">{stu.name}</span>
-                                                    <span className={`font-medium ${latest?.clinical_report ? 'text-green-600' : isNormal ? 'text-green-600' : latest ? 'text-orange-500' : 'text-gray-400'}`}>
+                                                    <span className="text-gray-600 dark:text-slate-300 truncate mr-2">{stu.name}</span>
+                                                    <span className={`font-medium ${latest?.clinical_report ? 'text-green-600 dark:text-green-400' : isNormal ? 'text-green-600 dark:text-green-400' : latest ? 'text-orange-500 dark:text-orange-400' : 'text-gray-400 dark:text-slate-600'}`}>
                                                         {latest?.clinical_report ? 'Reported' : isNormal ? 'Normal' : latest ? 'Pending Review' : 'N/A'}
                                                     </span>
                                                 </div>
                                             )
                                         })}
                                         {section.patients?.length > 3 && (
-                                            <p className="text-[10px] text-gray-400">+{section.patients.length - 3} more students...</p>
+                                            <p className="text-[10px] text-gray-400 dark:text-slate-500">+{section.patients.length - 3} more students...</p>
                                         )}
                                     </div>
 
                                     <Link
                                         to={`/section/${section.id}`}
-                                        className="w-full flex items-center justify-center space-x-1 py-2 bg-gray-50 text-gray-600 rounded-xl text-xs font-bold hover:bg-blue-50 hover:text-blue-600 transition-colors"
+                                        className="w-full flex items-center justify-center space-x-1 py-2 bg-gray-50 dark:bg-slate-900 text-gray-600 dark:text-slate-400 rounded-xl text-xs font-bold hover:bg-blue-50 dark:hover:bg-blue-900/30 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
                                     >
                                         <span>View Results</span>
                                         <ChevronRight className="w-3 h-3" />
@@ -240,17 +240,17 @@ export default function Dashboard() {
                 ))}
 
                 {filteredSections.length === 0 && (
-                    <div className="p-12 text-center bg-white rounded-3xl border-2 border-dashed border-gray-100 flex flex-col items-center justify-center">
-                        <div className="w-16 h-16 bg-gray-50 rounded-full flex items-center justify-center mb-4">
-                            <Search className="w-8 h-8 text-gray-300" />
+                    <div className="p-12 text-center bg-white dark:bg-slate-800 rounded-3xl border-2 border-dashed border-gray-100 dark:border-slate-700 flex flex-col items-center justify-center">
+                        <div className="w-16 h-16 bg-gray-50 dark:bg-slate-900 rounded-full flex items-center justify-center mb-4">
+                            <Search className="w-8 h-8 text-gray-300 dark:text-slate-600" />
                         </div>
-                        <p className="text-gray-900 font-medium">No results found</p>
-                        <p className="text-gray-500 text-sm mt-1">
+                        <p className="text-gray-900 dark:text-white font-medium">No results found</p>
+                        <p className="text-gray-500 dark:text-slate-400 text-sm mt-1">
                             We couldn't find any schools or classes matching "{searchTerm}"
                         </p>
                         <button
                             onClick={() => setSearchTerm('')}
-                            className="mt-4 text-blue-600 hover:text-blue-800 text-sm font-bold"
+                            className="mt-4 text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 text-sm font-bold"
                         >
                             Clear search
                         </button>
