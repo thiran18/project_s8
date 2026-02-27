@@ -27,6 +27,7 @@ export default function Test() {
     const paramPatientId = searchParams.get('patientId');
 
     const [patientName, setPatientName] = useState('');
+    const [patientPhoto, setPatientPhoto] = useState(null);
     const [hasStarted, setHasStarted] = useState(false);
     const [isClinicalMode, setIsClinicalMode] = useState(false); // Default to Screening Mode
     const [currentStepIndex, setCurrentStepIndex] = useState(0);
@@ -73,11 +74,14 @@ export default function Test() {
     // Auto-fill name if coming from patient list
     useEffect(() => {
         if (paramPatientId) {
-            const fetchName = async () => {
-                const { data } = await supabase.from('patients').select('name').eq('id', paramPatientId).single();
-                if (data) setPatientName(data.name);
+            const fetchPatient = async () => {
+                const { data } = await supabase.from('patients').select('name, avatar_url').eq('id', paramPatientId).single();
+                if (data) {
+                    setPatientName(data.name);
+                    setPatientPhoto(data.avatar_url);
+                }
             };
-            fetchName();
+            fetchPatient();
         }
     }, [paramPatientId]);
 
@@ -427,13 +431,22 @@ export default function Test() {
                     <div className="p-8 space-y-6">
                         <div className="space-y-4 text-left">
                             <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 ml-1">Patient Identification</label>
-                            <input
-                                type="text"
-                                placeholder="Full Name / ID"
-                                value={patientName}
-                                onChange={(e) => setPatientName(e.target.value)}
-                                className="w-full px-4 py-3 border border-slate-200 dark:border-slate-700 rounded-xl bg-white dark:bg-slate-900 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 outline-none transition-all font-medium placeholder-slate-400 dark:placeholder-slate-600"
-                            />
+                            <div className="flex items-center space-x-3">
+                                <div className="w-12 h-12 rounded-xl border-2 border-blue-500/10 overflow-hidden bg-white dark:bg-slate-900 flex items-center justify-center shrink-0 font-bold text-blue-600 dark:text-blue-400 uppercase text-xl">
+                                    {patientPhoto ? (
+                                        <img src={patientPhoto} alt={patientName} className="w-full h-full object-cover" />
+                                    ) : (
+                                        <span>{patientName?.charAt(0) || '?'}</span>
+                                    )}
+                                </div>
+                                <input
+                                    type="text"
+                                    placeholder="Full Name / ID"
+                                    value={patientName}
+                                    onChange={(e) => setPatientName(e.target.value)}
+                                    className="flex-1 px-4 py-3 border border-slate-200 dark:border-slate-700 rounded-xl bg-white dark:bg-slate-900 text-gray-900 dark:text-white focus:ring-2 focus:ring-blue-500 outline-none transition-all font-medium placeholder-slate-400 dark:placeholder-slate-600"
+                                />
+                            </div>
                         </div>
 
                         <div className="bg-amber-50 dark:bg-amber-900/20 p-4 rounded-xl border border-amber-100 dark:border-amber-900/30 flex items-start space-x-3 text-left">
@@ -588,7 +601,16 @@ export default function Test() {
                     <button onClick={onCancel} className="p-2 text-[#90A4AE] hover:text-[#607D8B] dark:hover:text-slate-300 transition-colors"><X className="w-6 h-6" /></button>
 
                     <div className="flex flex-col items-center">
-                        <span className="text-[10px] font-bold text-[#B0BEC5] dark:text-slate-500 uppercase tracking-[0.2em] mb-2">Testing Phase</span>
+                        <div className="flex items-center space-x-3 mb-2">
+                            <div className="w-8 h-8 rounded-full border border-blue-500/10 overflow-hidden bg-white dark:bg-slate-900 flex items-center justify-center shrink-0 shadow-sm font-bold text-blue-600 dark:text-blue-400 uppercase text-xs">
+                                {patientPhoto ? (
+                                    <img src={patientPhoto} alt={patientName} className="w-full h-full object-cover" />
+                                ) : (
+                                    <span>{patientName?.charAt(0) || '?'}</span>
+                                )}
+                            </div>
+                            <span className="text-[10px] font-bold text-[#B0BEC5] dark:text-slate-500 uppercase tracking-[0.2em]">Testing Phase</span>
+                        </div>
 
                         {/* Ear Selection Buttons */}
                         <div className="flex items-center space-x-1 mb-2 bg-gray-100 dark:bg-slate-900 p-1 rounded-full border border-transparent dark:border-slate-700">

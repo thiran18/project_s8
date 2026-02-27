@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from 'react'
 import { supabase } from '../lib/supabase'
-import { Plus, Search, User, FileText, ChevronRight, Eye, Trash2, X, School, BookOpen } from 'lucide-react'
+import { Plus, Search, User, FileText, ChevronRight, Eye, Trash2, X, School, BookOpen, Camera } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import { useAuth } from '../context/useAuth'
 import Loading from '../components/ui/Loading'
@@ -18,6 +18,7 @@ export default function Patients() {
     const [selectedPatient, setSelectedPatient] = useState(null)
     const [editMode, setEditMode] = useState(false)
     const [updating, setUpdating] = useState(false)
+    const [uploadingPhoto, setUploadingPhoto] = useState(false)
 
     // New Patient Form
     const [newPatient, setNewPatient] = useState({
@@ -117,6 +118,116 @@ export default function Patients() {
         }
     }
 
+    const handlePhotoUpload = async (e, patientId) => {
+        if (!isTeacher) return
+        const file = e.target.files[0]
+        if (!file) return
+
+        // Basic size check (max 2MB)
+        if (file.size > 2 * 1024 * 1024) {
+            alert('File is too large. Please select an image under 2MB.')
+            return
+        }
+
+        try {
+            setUploadingPhoto(true)
+            console.log('--- Photo Upload Start ---')
+            console.log('File:', file.name, 'Size:', (file.size / 1024).toFixed(2), 'KB')
+
+            const fileExt = file.name.split('.').pop()
+            const fileName = `${patientId}-${Date.now()}.${fileExt}`
+            const filePath = `${fileName}`
+
+            console.log('Uploading to Supabase bucket "avatars"...')
+            // Upload to Supabase Storage
+            const { data, error: uploadError } = await supabase.storage
+                .from('avatars')
+                .upload(filePath, file, {
+                    cacheControl: '3600',
+                    upsert: true
+                })
+
+            if (uploadError) {
+                console.error('Storage Upload Error:', uploadError)
+                throw uploadError
+            }
+            console.log('Upload successful:', data)
+
+            // Get Public URL
+            const { data: { publicUrl } } = supabase.storage
+                .from('avatars')
+                .getPublicUrl(filePath)
+
+            console.log('Generated Public URL:', publicUrl)
+
+            // Update Patient Record
+            console.log('Updating database record for patient:', patientId)
+            const { error: updateError } = await supabase
+                .from('patients')
+                .update({ avatar_url: publicUrl })
+                .eq('id', patientId)
+
+            if (updateError) {
+                console.error('Database Update Error:', updateError)
+                throw updateError
+            }
+            console.log('Database updated successfully!')
+
+            // Update Local State
+            if (selectedPatient && selectedPatient.id === patientId) {
+                setSelectedPatient({ ...selectedPatient, avatar_url: publicUrl })
+            }
+            fetchPatients()
+            console.log('--- Photo Upload Finished ---')
+        } catch (error) {
+            console.error('Final Catch Error:', error)
+            alert('Error: ' + (error.error_description || error.message || 'Check browser console for details'))
+        } finally {
+            setUploadingPhoto(false)
+        }
+    }
+
+    const handleRemovePhoto = async (patientId) => {
+        if (!isTeacher) return
+        if (!window.confirm('Are you sure you want to remove this photo and use initials instead?')) return
+
+        try {
+            setUploadingPhoto(true)
+            const { error } = await supabase
+                .from('patients')
+                .update({ avatar_url: null })
+                .eq('id', patientId)
+
+            if (error) throw error
+
+            if (selectedPatient && selectedPatient.id === patientId) {
+                setSelectedPatient({ ...selectedPatient, avatar_url: null })
+            }
+            fetchPatients()
+        } catch (error) {
+            alert('Error removing photo: ' + error.message)
+        } finally {
+            setUploadingPhoto(false)
+        }
+    }
+
+    const renderAvatar = (patient, size = '11') => {
+        if (patient.avatar_url) {
+            return (
+                <img
+                    src={patient.avatar_url}
+                    alt={patient.name}
+                    className="w-full h-full object-cover"
+                />
+            )
+        }
+        return (
+            <div className="w-full h-full flex items-center justify-center bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 font-bold uppercase" style={{ fontSize: size === '11' ? '1rem' : '2.5rem' }}>
+                {patient.name?.charAt(0) || '?'}
+            </div>
+        )
+    }
+
     const handleDeletePatient = async (id, name) => {
         if (!window.confirm(`Are you sure you want to delete patient "${name}"? This will also delete all their screenings.`)) return
 
@@ -185,8 +296,8 @@ export default function Patients() {
                             <div className="hover:bg-gray-50 dark:hover:bg-slate-700 transition-colors px-4 py-4 sm:px-6">
                                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 w-full">
                                     <div className="flex items-center min-w-0">
-                                        <div className="flex-shrink-0 bg-blue-100 dark:bg-blue-900/30 rounded-full p-2.5">
-                                            <User className="h-6 w-6 text-blue-600 dark:text-blue-400" />
+                                        <div className="flex-shrink-0 w-11 h-11 border-2 border-blue-500/10 rounded-full overflow-hidden bg-white dark:bg-slate-900">
+                                            {renderAvatar(patient)}
                                         </div>
                                         <div className="ml-4 min-w-0 flex-1">
                                             <div className="flex flex-wrap items-center gap-2">
@@ -316,13 +427,30 @@ export default function Patients() {
 
                         {/* Left Sidebar - Profile */}
                         <div className="w-full md:w-[40%] bg-gray-50/50 dark:bg-slate-900/50 p-8 flex flex-col items-center border-b md:border-b-0 md:border-r border-gray-100 dark:border-slate-700">
-                            <div className="w-32 h-32 rounded-full p-1 border-2 border-gray-200 dark:border-slate-700 mb-4 flex items-center justify-center relative">
-                                <div className="w-full h-full bg-blue-50 dark:bg-slate-800 rounded-full flex items-center justify-center overflow-hidden">
-                                    <img
-                                        src={`https://api.dicebear.com/7.x/micah/svg?seed=${selectedPatient.name}&backgroundColor=b6e3f4`}
-                                        alt="avatar"
-                                        className="w-full h-full object-cover"
-                                    />
+                            <div className="relative group">
+                                <div className="w-32 h-32 rounded-full p-1 border-2 border-blue-500/20 dark:border-blue-500/10 mb-4 flex items-center justify-center relative overflow-hidden bg-white dark:bg-slate-800 shadow-xl shadow-blue-500/5">
+                                    {renderAvatar(selectedPatient, '32')}
+
+                                    {/* Upload Overlay - Teachers Only */}
+                                    {isTeacher && (
+                                        <label className="absolute inset-0 flex flex-col items-center justify-center bg-black/60 opacity-0 group-hover:opacity-100 cursor-pointer transition-all duration-300 rounded-full backdrop-blur-[2px]">
+                                            {uploadingPhoto ? (
+                                                <div className="w-6 h-6 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                                            ) : (
+                                                <>
+                                                    <Camera className="text-white w-6 h-6 mb-1" />
+                                                    <span className="text-[10px] text-white font-bold uppercase tracking-wider">Update</span>
+                                                </>
+                                            )}
+                                            <input
+                                                type="file"
+                                                className="hidden"
+                                                accept="image/*"
+                                                onChange={(e) => handlePhotoUpload(e, selectedPatient.id)}
+                                                disabled={uploadingPhoto}
+                                            />
+                                        </label>
+                                    )}
                                 </div>
                             </div>
 
@@ -332,6 +460,17 @@ export default function Patients() {
                             <div className="bg-[#d946ef] text-white px-6 py-1.5 rounded-full text-sm font-bold tracking-wide shadow-sm mb-6">
                                 {selectedPatient.pid || 'NO PID'}
                             </div>
+
+                            {/* Remove Photo Button - Only if avatar exists and is teacher */}
+                            {isTeacher && selectedPatient.avatar_url && (
+                                <button
+                                    onClick={() => handleRemovePhoto(selectedPatient.id)}
+                                    className="text-xs font-bold text-red-500 hover:text-red-600 transition-colors flex items-center gap-1"
+                                >
+                                    <Trash2 size={12} />
+                                    <span>Remove Photo</span>
+                                </button>
+                            )}
 
 
 

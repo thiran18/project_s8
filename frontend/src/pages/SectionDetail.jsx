@@ -54,6 +54,7 @@ export default function SectionDetail() {
                     name,
                     age,
                     gender,
+                    avatar_url,
                     screenings(id, classification, date, clinical_report)
                 `)
                 .eq('section_id', sectionId)
@@ -178,8 +179,12 @@ export default function SectionDetail() {
                                 <div className="flex flex-col md:grid md:grid-cols-12 md:gap-4 md:items-center gap-6">
                                     {/* Name Column */}
                                     <div className="md:col-span-4 flex items-center space-x-3">
-                                        <div className="w-10 h-10 md:w-8 md:h-8 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 flex items-center justify-center font-bold text-sm shrink-0">
-                                            {stu.name[0].toUpperCase()}
+                                        <div className="w-10 h-10 md:w-8 md:h-8 rounded-full border-2 border-blue-500/10 overflow-hidden bg-white dark:bg-slate-900 flex items-center justify-center font-bold text-sm shrink-0 uppercase">
+                                            {stu.avatar_url ? (
+                                                <img src={stu.avatar_url} alt={stu.name} className="w-full h-full object-cover" />
+                                            ) : (
+                                                <span className="text-blue-600 dark:text-blue-400">{stu.name[0]}</span>
+                                            )}
                                         </div>
                                         <div className="min-w-0">
                                             <span className="font-bold text-gray-900 dark:text-white block truncate">{stu.name}</span>

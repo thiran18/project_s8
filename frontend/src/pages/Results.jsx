@@ -373,9 +373,18 @@ export default function Results() {
                     <Link to="/dashboard" className="p-2 hover:bg-gray-100 dark:hover:bg-slate-800 rounded-full transition-colors flex-shrink-0">
                         <ArrowLeft className="w-5 h-5 text-gray-500 dark:text-slate-400" />
                     </Link>
-                    <div className="min-w-0 flex-1">
-                        <h1 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white truncate">Clinical Audiogram</h1>
-                        <p className="text-sm sm:text-base text-gray-500 dark:text-slate-400 truncate">Patient: <span className="font-semibold text-gray-900 dark:text-slate-200">{patient?.name}</span></p>
+                    <div className="flex items-center space-x-3 min-w-0">
+                        <div className="w-10 h-10 rounded-full border-2 border-blue-500/10 overflow-hidden bg-white dark:bg-slate-900 flex items-center justify-center shrink-0 font-bold text-blue-600 dark:text-blue-400 uppercase">
+                            {patient?.avatar_url ? (
+                                <img src={patient.avatar_url} alt={patient.name} className="w-full h-full object-cover" />
+                            ) : (
+                                <span>{patient?.name?.[0]}</span>
+                            )}
+                        </div>
+                        <div className="min-w-0">
+                            <h1 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white truncate">Clinical Audiogram</h1>
+                            <p className="text-sm sm:text-base text-gray-500 dark:text-slate-400 truncate">Patient: <span className="font-semibold text-gray-900 dark:text-slate-200">{patient?.name}</span></p>
+                        </div>
                     </div>
                 </div>
                 <div className="flex flex-wrap items-center gap-2 w-full md:w-auto">

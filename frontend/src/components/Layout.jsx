@@ -39,7 +39,7 @@ export default function Layout() {
             <aside className="hidden md:flex flex-col w-64 bg-white dark:bg-slate-900 border-r border-gray-200 dark:border-slate-800">
                 <div className="p-6 flex items-center space-x-3">
                     <div className="w-10 h-10">
-                        <img src="/newLOGO.png" alt="HearPulse Logo" className="w-full h-full object-contain dark:invert" />
+                        <img src="/newLOGO.png" alt="HearPulse Logo" className="w-full h-full object-contain" />
                     </div>
                     <span className="text-xl font-bold text-gray-900 dark:text-white">HearPulse</span>
                 </div>
@@ -71,8 +71,12 @@ export default function Layout() {
                 <header className="hidden md:flex bg-white dark:bg-slate-900 border-b border-gray-200 dark:border-slate-800 items-center justify-end px-8 py-3">
                     <div className="flex items-center space-x-4">
                         <div className="flex items-center space-x-3 px-4 py-2 rounded-lg hover:bg-gray-50 dark:hover:bg-slate-800 transition-colors">
-                            <div className="w-9 h-9 rounded-full bg-blue-100 dark:bg-blue-900 flex items-center justify-center text-blue-700 dark:text-blue-200 font-bold">
-                                {user?.email?.[0].toUpperCase()}
+                            <div className="w-9 h-9 rounded-full bg-blue-100 dark:bg-blue-900 flex items-center justify-center font-bold overflow-hidden border border-blue-500/10 shadow-sm">
+                                {userProfile?.avatar_url ? (
+                                    <img src={userProfile.avatar_url} alt="Profile" className="w-full h-full object-cover" />
+                                ) : (
+                                    <span className="text-blue-700 dark:text-blue-200">{user?.email?.[0].toUpperCase()}</span>
+                                )}
                             </div>
                             <div className="overflow-hidden">
                                 <p className="text-sm font-medium text-gray-900 dark:text-white truncate">{user?.email}</p>
@@ -96,7 +100,7 @@ export default function Layout() {
                 <header className="md:hidden bg-white dark:bg-slate-900 border-b border-gray-200 dark:border-slate-800 flex items-center justify-between p-4 sticky top-0 z-40">
                     <div className="flex items-center space-x-2">
                         <div className="w-8 h-8">
-                            <img src="/newLOGO.png" alt="HearPulse Logo" className="w-full h-full object-contain dark:invert" />
+                            <img src="/newLOGO.png" alt="HearPulse Logo" className="w-full h-full object-contain" />
                         </div>
                         <span className="text-lg font-bold text-gray-900 dark:text-white">HearPulse</span>
                     </div>
@@ -115,7 +119,7 @@ export default function Layout() {
                             <div className="flex items-center justify-between p-4 border-b border-gray-100 dark:border-slate-800">
                                 <div className="flex items-center space-x-2">
                                     <div className="w-8 h-8">
-                                        <img src="/newLOGO.png" alt="HearPulse Logo" className="w-full h-full object-contain dark:invert" />
+                                        <img src="/newLOGO.png" alt="HearPulse Logo" className="w-full h-full object-contain" />
                                     </div>
                                     <span className="text-lg font-bold text-gray-900 dark:text-white">Menu</span>
                                 </div>
@@ -151,8 +155,12 @@ export default function Layout() {
 
                                 <div className="mt-8 pt-8 border-t border-gray-100 dark:border-slate-800 space-y-4 px-2">
                                     <div className="flex items-center space-x-3 py-2">
-                                        <div className="w-12 h-12 rounded-full bg-blue-100 dark:bg-blue-900 flex items-center justify-center text-blue-700 dark:text-blue-200 font-bold text-xl">
-                                            {user?.email?.[0].toUpperCase()}
+                                        <div className="w-12 h-12 rounded-full bg-blue-100 dark:bg-blue-900 flex items-center justify-center font-bold text-xl overflow-hidden border border-blue-500/10 shadow-sm">
+                                            {userProfile?.avatar_url ? (
+                                                <img src={userProfile.avatar_url} alt="Profile" className="w-full h-full object-cover" />
+                                            ) : (
+                                                <span className="text-blue-700 dark:text-blue-200">{user?.email?.[0].toUpperCase()}</span>
+                                            )}
                                         </div>
                                         <div className="flex-1 min-w-0">
                                             <p className="text-sm font-bold text-gray-900 dark:text-white truncate">{user?.email}</p>
